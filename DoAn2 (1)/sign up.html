@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Đăng ký - TicketGo</title>
+  <link rel="stylesheet" href="sign up.css" />
+  <script src="signup.js" defer></script>
+</head>
+<body class="register-page">
+  <main class="register-box" role="main">
+    <div class="logo-center">
+      <span class="logo__wordmark">
+        <span class="ticket">Ticket</span><span class="go">Go</span>
+      </span>
+      <p class="logo__tagline">Đi chơi đâu, lên Ticketgo</p>
+    </div>
+
+    <h1 class="register-title">ĐĂNG KÝ</h1>
+
+    <form class="register-form" novalidate>
+      <div class="field">
+        <label for="fullname">TÊN ĐẦY ĐỦ</label>
+        <input type="text" id="fullname" placeholder="Nhập họ và tên" autocomplete="name" required />
+      </div>
+
+      <div class="field">
+        <label for="email">EMAIL</label>
+        <input type="email" id="email" placeholder="Nhập email" autocomplete="email" required />
+      </div>
+
+      <div class="field">
+        <label for="password">MẬT KHẨU</label>
+        <input type="password" id="password" placeholder="Nhập mật khẩu" autocomplete="new-password" required />
+      </div>
+
+      <div class="field">
+        <label for="repassword">NHẬP LẠI MẬT KHẨU</label>
+        <input type="password" id="repassword" placeholder="Nhập lại mật khẩu" autocomplete="new-password" required />
+      </div>
+
+      <div class="checkbox">
+        <input type="checkbox" id="agree" required />
+        <label for="agree">Tôi đồng ý với các <a href="#">chính sách và điều kiện sử dụng</a></label>
+      </div>
+      <button type="submit" class="btn-submit">ĐĂNG KÝ</button>
+    </form>
+
+    <p class="login-link">Bạn đã có tài khoản? <a href="login.html">Đăng nhập</a></p>
+  </main>
+</body>
+</html>

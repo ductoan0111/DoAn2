@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TicketGo</title>
+  <link rel="stylesheet" href="news.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <script src="news.js" defer></script>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-wrap">
+      <!-- Logo -->
+      <a href="#" class="logo" aria-label="TicketGo">
+        <div>
+          <div class="logo__wordmark">
+            <span class="ticket">Ticket</span><span class="go">Go</span>
+          </div>
+          <div class="logo__tagline">Đi chơi đâu, lên Ticketgo</div>
+        </div>
+      </a>
+
+      <!-- Search -->
+      <form class="search" role="search" aria-label="Tìm kiếm">
+        <div class="search__field">
+          <input class="search__input" type="search" placeholder="Tìm kiếm..." aria-label="Tìm kiếm" />
+          <button class="search__btn" type="submit" aria-label="Tìm">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"></circle>
+              <line x1="16.65" y1="16.65" x2="22" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+            </svg>
+          </button>
+        </div>
+      </form>
+
+      <!-- Nút hamburger (mobile) -->
+      <button class="hamburger" aria-label="Mở menu tài khoản" aria-expanded="false" aria-controls="accountMenu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <!-- Actions (desktop) -->
+      <nav class="actions" aria-label="Tài khoản & ngôn ngữ">
+        <a class="link" href="#">Đăng nhập</a>
+        <a class="link" href="#">Đăng ký</a>
+
+        <!-- Language -->
+        <div class="lang">
+          <button class="lang__btn" aria-haspopup="menu" aria-expanded="false">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 3 2" width="18" height="12" xmlns="http://www.w3.org/2000/svg">
+                <rect width="3" height="2" fill="#da251d"></rect>
+                <polygon points="1.5,0.3 1.7,0.9 2.3,0.9 1.8,1.2 2,1.8 1.5,1.45 1,1.8 1.2,1.2 0.7,0.9 1.3,0.9" fill="#ff0"></polygon>
+              </svg>
+            </span>
+            <span class="label">VN</span>
+            <span class="caret" aria-hidden="true">
+              <svg viewBox="0 0 20 20" width="10" height="10">
+                <path d="M5 7l5 6 5-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+              </svg>
+            </span>
+          </button>
+          <div class="lang__menu" role="menu">
+            <a class="lang__item" href="#" role="menuitem">🇻🇳 Tiếng Việt</a>
+            <a class="lang__item" href="#" role="menuitem">EN English</a>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Menu tài khoản (mobile) -->
+      <div id="accountMenu" class="account-menu" role="menu">
+        <a role="menuitem" href="#">Đăng nhập</a>
+        <a role="menuitem" href="#">Đăng ký</a>
+        <div class="account-menu__sep"></div>
+        <div class="account-menu__label">Ngôn ngữ</div>
+        <a class="account-menu__lang" href="#" data-lang="vi" role="menuitem">🇻🇳 Tiếng Việt</a>
+        <a class="account-menu__lang" href="#" data-lang="en" role="menuitem">EN English</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MENU DƯỚI -->
+  <nav class="main-nav" aria-label="Danh mục">
+    <div class="container main-nav__inner">
+      <ul class="menu">
+        <li><a href="#">Vé ca nhạc</a></li>
+        <li><a href="#">Văn hóa nghệ thuật</a></li>
+        <li><a href="#">Du lịch</a></li>
+        <li><a href="#">Workshop</a></li>
+        <li><a href="#">Vé xem phim</a></li>
+        <li><a href="#">Vé tham quan</a></li>
+        <li><a href="#">Thể thao</a></li>
+        <li><a href="#">Tin tức</a></li>
+      </ul>
+
+      <div class="location">
+        <label class="sr-only" for="city">Chọn địa điểm</label>
+        <div class="select-wrap">
+          <select id="city" class="select">
+            <option value="">Chọn địa điểm</option>
+            <option>Hà Nội</option>
+            <option>TP. Hồ Chí Minh</option>
+            <option>Đà Nẵng</option>
+            <option>Hải Phòng</option>
+            <option>Cần Thơ</option>
+          </select>
+          <span class="select-caret" aria-hidden="true">
+            <svg viewBox="0 0 20 20" width="14" height="14">
+              <path d="M5 7l5 6 5-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+<main class="news-body">
+  <section class="news-hero">
+    <div class="container">
+      <div class="carousel" data-autoplay="6000">
+        <div class="carousel__viewport">
+          <div class="carousel__track">
+            <!-- Mỗi item = 1 card tin: ảnh + tiêu đề -->
+            <article class="card">
+              <a class="thumb" href="#">
+                <img src="https://ticketgo.vn/uploads/images/blog/1759128406.jpg" alt="NEU Concert 2025">
+              </a>
+              <h3 class="title">NEU CONCERT 2025: KHỞI ĐỘNG NÁO NHIỆT CÙNG</h3>
+            </article>
+
+            <article class="card">
+              <a class="thumb" href="#">
+                <img src="https://ticketgo.vn/uploads/images/blog/1759117130.jpg" alt="Profile Nghệ sĩ SiaM">
+              </a>
+              <h3 class="title">KHÁM PHÁ PROFILE NGHỆ SĨ SIAM: TIỂU SỬ, HÀNH TRÌNH</h3>
+            </article>
+
+            <article class="card">
+              <a class="thumb" href="#">
+                <img src="https://ticketgo.vn/uploads/images/blog/1758536297.jpg" alt="Tầm nhìn thương hiệu 2025">
+              </a>
+              <h3 class="title">CUỘC THI TẦM NHÌN THƯƠNG HIỆU 2025 -</h3>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- nút chuyển slide -->
+    <div class="dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+  </section>
+ <!-- ========== BLOCK 1: HỘI CHỢ & TRIỂN LÃM / ÂM NHẠC - MUSIC SHOWS ========== -->
+    <section class="cat-section">
+      <div class="container">
+        <div class="cat-grid">
+          <!-- Cột trái -->
+          <div class="cat-col">
+            <h2 class="cat-title">HỘI CHỢ &amp; TRIỂN LÃM</h2>
+            <a class="poster-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1755245509.jpg" alt="Diễn đàn PPP-P+ 2025"></a>
+            <div class="list-block">
+              <h3 class="block-title">CÁC HẠNG VÉ VÀ QUYỀN LỢI ĐI KÈM ĐỘC QUYỀN KHI MUA VÉ THAM DỰ HỘI</h3>
+
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1753757438.jpg" alt="Triển lãm LÂM"></a>
+                <h4 class="item-title"><a href="#">TRIỂN LÃM LÂM</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1751886156.png" alt="Hơi thở từ trúc"></a>
+                <h4 class="item-title"><a href="#">HƠI THỞ TỪ TRÚC: CHUYỆN KỂ VỀ TÂM HỒN VIỆT GIỮA LÒNG HÀ NỘI</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1750903155.jpg" alt="Triển lãm tranh da"></a>
+                <h4 class="item-title"><a href="#">TRIỂN LÃM TRANH DA VỀ CHUNG MỘT NHÀ</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1750652142.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Hội chợ Thương mại Quốc tế Việt Nam tại TP. Hồ Chí Minh - VIETNAM EXPO 2025</a></h4>
+              </article>
+
+              <div class="see-more"><a class="see-more__link" href="#">Xem thêm</a></div>
+            </div>
+          </div>
+
+          <!-- Cột phải -->
+          <div class="cat-col">
+            <h2 class="cat-title">ÂM NHẠC - MUSIC SHOWS</h2>
+            <a class="poster-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1759726562.jpg" alt="Sự kiện âm nhạc 20/10"></a>
+            <div class="list-block">
+              <h3 class="block-title">Tổng hợp Sự kiện tháng 10/2025: Hàng loạt chương trình đặc biệt chào mừng</h3>
+
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1759128406.jpg" alt="NEU Concert 2025"></a>
+                <h4 class="item-title"><a href="#">NEU CONCERT 2025: KHỞI ĐỘNG NÁO NHIỆT CÙNG CHUỖI HOẠT ĐỘNG CHÀO TÂN HOÀNH TRÁNG NHẤT TẠI NEU</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1758193597.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">NEU CONCERT – KHI THANH XUÂN BẮT ĐẦU TỪ NHỮNG GIA ĐIỆU</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1757421654.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">NEU CONCERT 2025 ẤN ĐỊNH NGÀY TRỞ LẠI, BÙNG NỔ TIÊN PHONG CHUỖI HOẠT ĐỘNG KỶ NIỆM 70 NĂM ĐẠI HỌC KINH TẾ…</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1757301804.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Dàn nghệ sĩ Việt quy tụ tại đêm nhạc "Chill về tuổi thơ" vào ngày 20/09/2025</a></h4>
+              </article>
+
+              <div class="see-more"><a class="see-more__link" href="#">Xem thêm</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== BLOCK 2: Gameshow & Talk show / Văn hóa nghệ thuật ========== -->
+    <section class="cat-section">
+      <div class="container">
+        <div class="cat-grid">
+          <div class="cat-col">
+            <h2 class="cat-title">Gameshow &amp; Talk show</h2>
+            <a class="poster-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1751635651.png" alt=""></a>
+            <div class="list-block">
+              <h3 class="block-title">Vòng Chung kết cuộc thi Economist Up 2025 – Hành trình Hội nhập: Giấc mơ đưa</h3>
+
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1750737126.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Rót Chén Thanh Chân - Trà đàm 5 - Uống trà với Kiều | Ngày 28.06.2025</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1749709469.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Tọa đàm: Đôi mắt của Mona</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1749608123.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Bài giảng: Cùng tạo ra Doraemon - Tương lai dệt từ Trái tim và AI bởi Phó GS, TS Osawa</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1749110619.png" alt=""></a>
+                <h4 class="item-title"><a href="#">Tọa đàm: ĐÁNH THỨC CON DIỀU: TỪ SMITHSONIAN 2025 VỀ HUẾ 1967</a></h4>
+              </article>
+
+              <div class="see-more"><a class="see-more__link" href="#">Xem thêm</a></div>
+            </div>
+          </div>
+
+          <div class="cat-col">
+            <h2 class="cat-title">Văn hóa nghệ thuật</h2>
+            <a class="poster-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1759818742.jpg" alt=""></a>
+            <div class="list-block">
+              <h3 class="block-title">Tổng hợp các sự kiện cực HOT sẽ diễn ra vào tháng 10/2025 tại Tp Hồ Chí Minh</h3>
+
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1759142857.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Halloween trường Báo: chuỗi sự kiện đồng hành “Hao” - “Hóa”</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1754896517.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Tổng hợp sự kiện hấp dẫn cuối quý III/2025</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1754640051.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Sự kiện văn hóa tháng 08–09/2025 | Mừng 80 năm Quốc Khánh</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1750903571.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">BUNRAKU – Kịch rối truyền thống Nhật Bản</a></h4>
+              </article>
+
+              <div class="see-more"><a class="see-more__link" href="#">Xem thêm</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== BLOCK 3: Giáo dục & workshop / Thể thao & công nghệ ========== -->
+    <section class="cat-section">
+      <div class="container">
+        <div class="cat-grid">
+          <div class="cat-col">
+            <h2 class="cat-title">Giáo dục &amp; workshop</h2>
+            <a class="poster-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1759398630.png" alt=""></a>
+            <div class="list-block">
+              <h3 class="block-title">Bộ ảnh truyền thông “Serendipity”: Động lực giúp mỗi “kỳ thủ” mở ra hành trình</h3>
+
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1758536297.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">CUỘC THI TẦM NHÌN THƯƠNG HIỆU 2025 - “LUMINOUS VALLEY” mở đơn toàn quốc</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1758284901.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">MINH DUC MEDIA – Nhà tài trợ vàng MASTER HOST 2025</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1758195365.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">NEU CLUB DAY 2025: Sắc màu tuổi trẻ – Dấu ấn bứt phá</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1756303753.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Mở đơn đăng ký dự thi STOCKWISE 2025</a></h4>
+              </article>
+
+              <div class="see-more"><a class="see-more__link" href="#">Xem thêm</a></div>
+            </div>
+          </div>
+
+          <div class="cat-col">
+            <h2 class="cat-title">Thể thao &amp; công nghệ</h2>
+            <a class="poster-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1750404813.jpg" alt=""></a>
+            <div class="list-block">
+              <h3 class="block-title">Vietnam Game Connect 2025 – Kết nối các nhà phát triển & phát hành game</h3>
+
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1748940087.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">MOVE AFTER MOVE 2025: Hip Hop Edition</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1748576043.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Hanoi Allstyle Jam Vol 5 – International Grand Final</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1747712918.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Sneakshow Battle – High Card (24/05/2025)</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1746774844.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Hanoi Best Kidz – Children’s Day (01/06/2025)</a></h4>
+              </article>
+
+              <div class="see-more"><a class="see-more__link" href="#">Xem thêm</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== BLOCK 4: LIFESTYLE & QUIZ / PHIM HAY - PHIM MỚI ========== -->
+    <section class="cat-section">
+      <div class="container">
+        <div class="cat-grid">
+          <div class="cat-col">
+            <h2 class="cat-title">LIFESTYLE &amp; QUIZ</h2>
+            <a class="poster-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1750820409.jpg" alt=""></a>
+            <div class="list-block">
+              <h3 class="block-title">Hiến máu – Khúc Yêu Thương (05–06/7/2025)</h3>
+
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1750731968.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Echoing mini-trip | Kể chuyện chợ lớn (31.07.2025)</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1750645069.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Tử vi tuần mới 23/6 – 29/6</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1750129085.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Echoing Journey – Bến Tre Du Ký (06.2025)</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1750041412.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Echoing Trip – Theo Dấu Tiền Nhân (29.06.2025)</a></h4>
+              </article>
+
+              <div class="see-more"><a class="see-more__link" href="#">Xem thêm</a></div>
+            </div>
+          </div>
+
+          <div class="cat-col">
+            <h2 class="cat-title">PHIM HAY - PHIM MỚI</h2>
+            <a class="poster-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1728288454.jpg" alt=""></a>
+            <div class="list-block">
+              <h3 class="block-title">Chiếu phim & thảo luận: “Đời không là đua, nhưng phận tôi chiến…”</h3>
+
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1728012747.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Khai mạc Kinofest 2024 – “Phòng giáo viên” (Das Lehrerzimmer)</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1726643259.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Cà phê Điện ảnh: Brad Pitt – MEET JOE BLACK</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1726130788.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Điện ảnh Tây Ban Nha tại Oscar 2024: SOCIETY OF THE SNOW</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1724389426.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">THE STORY OF FILM: AN ODYSSEY – Câu chuyện điện ảnh</a></h4>
+              </article>
+
+              <div class="see-more"><a class="see-more__link" href="#">Xem thêm</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== BLOCK 5: Hồ sơ nghệ sĩ / Kpop Jpop ========== -->
+    <section class="cat-section">
+      <div class="container">
+        <div class="cat-grid">
+          <div class="cat-col">
+            <h2 class="cat-title">Hồ sơ nghệ sĩ</h2>
+            <a class="poster-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1759117130.jpg" alt=""></a>
+            <div class="list-block">
+              <h3 class="block-title">Khám phá Profile Nghệ sĩ SiaM: Tiểu sử, hành trình & dấu ấn</h3>
+
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1756182214.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Marcin Patrzalek là ai? Thần đồng guitar người Ba Lan</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1755053843.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Tiểu sử nghệ sĩ Piano TRẦN LÊ BẢO QUYÊN – Bluesky Season 1</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1754970357.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Nhạc trưởng Nguyễn Khắc Thành – Bluesky Season 1</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1754540209.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Nhạc sĩ Dương Thụ – Tiểu sử, sự nghiệp & tác phẩm</a></h4>
+              </article>
+
+              <div class="see-more"><a class="see-more__link" href="#">Xem thêm</a></div>
+            </div>
+          </div>
+
+          <div class="cat-col">
+            <h2 class="cat-title">Kpop Jpop – Dành cho fan</h2>
+            <a class="poster-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1747189198.jpg" alt=""></a>
+            <div class="list-block">
+              <h3 class="block-title">Ravolution Asia: G-DRAGON trở lại Việt Nam</h3>
+
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1748940087.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">NewJeans – Lim Young Woong – BTS – IVE dẫn đầu Gallup 2023</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1702871540.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">BXH danh tiếng thương hiệu idol nữ 12/2023 – NewJeans vượt BLACKPINK</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1686899873.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Top 10 nghệ sĩ Hàn được stream nhiều nhất trên Spotify</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1682325335.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">BXH giá trị thương hiệu ca sĩ Hàn (4/2023) – NewJeans dẫn đầu</a></h4>
+              </article>
+
+              <div class="see-more"><a class="see-more__link" href="#">Xem thêm</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== BLOCK 6: Du lịch bốn phương / Trưng bày online ========== -->
+    <section class="cat-section">
+      <div class="container">
+        <div class="cat-grid">
+          <div class="cat-col">
+            <h2 class="cat-title">Du lịch bốn phương</h2>
+            <a class="poster-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1740475585.jpg" alt=""></a>
+            <div class="list-block">
+              <h3 class="block-title">Đi đâu chơi ở Đà Lạt? Tổng hợp địa điểm HOT</h3>
+
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1738922273.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Top 6 lễ hội cổ truyền nổi tiếng dịp tháng 3 Âm lịch</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1737448551.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Đi đâu chơi Valentine ở Đà Lạt – Update 2025</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1737023336.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Điểm vui chơi & âm nhạc HOT Đà Lạt 2–3/2025</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1719891114.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Yoga Retreat – Sapa Hidden Village 2024</a></h4>
+              </article>
+
+              <div class="see-more"><a class="see-more__link" href="#">Xem thêm</a></div>
+            </div>
+          </div>
+
+          <div class="cat-col">
+            <h2 class="cat-title">Trưng bày online</h2>
+            <a class="poster-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1609840422.jpg" alt=""></a>
+            <div class="list-block">
+              <h3 class="block-title">Đắm mình vào nghệ thuật tại các triển lãm tranh online</h3>
+
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1604895571.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">[Online] Đôi Tay Tài Hoa – Văn Hóa Tương Đồng</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1587351115.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Triển lãm online: Fashion Revolution Vietnam</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1586150114.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Triển lãm nghệ thuật online: Hửng Nắng</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1586150114.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Triển lãm nghệ thuật online: Hửng Nắng</a></h4>
+              </article>
+
+              <div class="see-more"><a class="see-more__link" href="#">Xem thêm</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== BLOCK 7: Movies & C-BIZ / Sức khỏe & Làm đẹp ========== -->
+    <section class="cat-section">
+      <div class="container">
+        <div class="cat-grid">
+          <div class="cat-col">
+            <h2 class="cat-title">Movies &amp; C-BIZ</h2>
+            <a class="poster-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1719822618.jpg" alt=""></a>
+            <div class="list-block">
+              <h3 class="block-title">Top 10 phim điện ảnh Trung Quốc hay nhất</h3>
+
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1669103500.png" alt=""></a>
+                <h4 class="item-title"><a href="#">Chu Nhất Long giành Ảnh đế Kim Kê lần 35</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1667270258.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Đề cử Kim Kê 2022 – Ngô Kinh & Dịch Dương Thiên Tỉ</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1663815881.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">8 phim Hoa Ngữ được mong chờ nhất 2023</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1663311808.png" alt=""></a>
+                <h4 class="item-title"><a href="#">Tân Biên Thành lãng tử – Phó Hồng Tuyết</a></h4>
+              </article>
+
+              <div class="see-more"><a class="see-more__link" href="#">Xem thêm</a></div>
+            </div>
+          </div>
+
+          <div class="cat-col">
+            <h2 class="cat-title">Sức khỏe &amp; Làm đẹp</h2>
+            <a class="poster-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1662601543.jpg" alt=""></a>
+            <div class="list-block">
+              <h3 class="block-title">5 thói quen ăn sáng giúp não bộ luôn minh mẫn</h3>
+
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1650857918.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">8 bí quyết dưỡng sinh của danh y Trung Hoa (thọ 141 tuổi)</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1650472291.png" alt=""></a>
+                <h4 class="item-title"><a href="#">Từ đại dịch Covid-19 nhìn lại tầm quan trọng của hơi thở</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1649751934.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">Những thực phẩm không nên kết hợp với mật ong & sữa</a></h4>
+              </article>
+              <article class="list-item">
+                <a class="item-thumb" href="#"><img src="https://ticketgo.vn/uploads/images/blog/1644462158.jpg" alt=""></a>
+                <h4 class="item-title"><a href="#">7 việc nhỏ mỗi ngày giúp bảo vệ phổi khoẻ mạnh</a></h4>
+              </article>
+
+              <div class="see-more"><a class="see-more__link" href="#">Xem thêm</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+</main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Cột 1 -->
+        <div class="footer-col">
+          <h4>Liên Hệ Hợp Tác</h4>
+          <p>Điện thoại: 0243.788.00.99 (8:30 - 17:00)</p>
+          <p>Hotline: 08.999.80.818</p>
+          <p>Email: <a href="mailto:chamsockhachhang@ticketgo.vn">chamsockhachhang@ticketgo.vn</a></p>
+          <p>Địa chỉ: Số 1, Phạm Văn Bạch, phường Yên Hòa, Cầu Giấy, Hà Nội.</p>
+          <p>Ứng dụng TicketGo</p>
+          <a href="#"><img src="https://www.ticketgo.vn/images/appstore.png" alt="App Store" class="store-btn"></a>
+        </div>
+
+        <!-- Cột 2 -->
+        <div class="footer-col">
+          <h4>Thông tin</h4>
+          <ul>
+            <li><a href="#">Về chúng tôi</a></li>
+            <li><a href="#">Khuyến mãi</a></li>
+            <li><a href="#">Phương thức thanh toán</a></li>
+            <li><a href="#">Chính sách bảo mật</a></li>
+            <li><a href="#">Hướng dẫn đặt vé</a></li>
+            <li><a href="#">Câu hỏi thường gặp</a></li>
+          </ul>
+        </div>
+
+        <!-- Cột 3 -->
+        <div class="footer-col">
+          <h4>Khách hàng</h4>
+          <ul>
+            <li><a href="#">Đăng nhập đối tác</a></li>
+            <li><a href="#">Tài khoản</a></li>
+            <li><a href="#">Gửi sự kiện</a></li>
+            <li><a href="#">Danh sách sự kiện</a></li>
+            <li><a href="#">Chương trình Go Xu</a></li>
+          </ul>
+        </div>
+
+        <!-- Cột 4 -->
+        <div class="footer-col">
+          <h4>Đăng ký nhận email</h4>
+          <form class="subscribe">
+            <input type="email" placeholder="Email của bạn" />
+            <button type="submit">→</button>
+          </form>
+          <div class="socials">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+          <div class="certs">
+            <img src="https://www.ticketgo.vn/images/ticketgo/dathongbao_bct.png" alt="Bộ công thương">
+            <img src="https://images.dmca.com/Badges/dmca_protected_sml_120n.png" alt="DMCA">
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

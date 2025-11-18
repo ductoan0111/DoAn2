@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TicketGo</title>
+  <link rel="stylesheet" href="travel.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <script src="travel.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+  <div class="container header-wrap">
+    <!-- Logo -->
+    <a href="#" class="logo" aria-label="TicketGo">
+      <div>
+        <div class="logo__wordmark">
+          <span class="ticket">Ticket</span><span class="go">Go</span>
+        </div>
+        <div class="logo__tagline">Đi chơi đâu, lên Ticketgo</div>
+      </div>
+    </a>
+
+    <!-- Search -->
+    <form class="search" role="search" aria-label="Tìm kiếm">
+      <div class="search__field">
+        <input class="search__input" type="search" placeholder="Tìm kiếm..." aria-label="Tìm kiếm" />
+        <button class="search__btn" type="submit" aria-label="Tìm">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"></circle>
+            <line x1="16.65" y1="16.65" x2="22" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+          </svg>
+        </button>
+      </div>
+    </form>
+
+    <!-- Nút hamburger (mobile) -->
+    <button class="hamburger" aria-label="Mở menu tài khoản" aria-expanded="false" aria-controls="accountMenu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Actions (desktop) -->
+    <nav class="actions" aria-label="Tài khoản & ngôn ngữ">
+      <a class="link" href="#">Đăng nhập</a>
+      <a class="link" href="#">Đăng ký</a>
+
+      <!-- Language -->
+      <div class="lang">
+        <button class="lang__btn" aria-haspopup="menu" aria-expanded="false">
+          <span class="flag" aria-hidden="true">
+            <svg viewBox="0 0 3 2" width="18" height="12" xmlns="http://www.w3.org/2000/svg">
+              <rect width="3" height="2" fill="#da251d"></rect>
+              <polygon points="1.5,0.3 1.7,0.9 2.3,0.9 1.8,1.2 2,1.8 1.5,1.45 1,1.8 1.2,1.2 0.7,0.9 1.3,0.9" fill="#ff0"></polygon>
+            </svg>
+          </span>
+          <span class="label">VN</span>
+          <span class="caret" aria-hidden="true">
+            <svg viewBox="0 0 20 20" width="10" height="10">
+              <path d="M5 7l5 6 5-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+            </svg>
+          </span>
+        </button>
+        <div class="lang__menu" role="menu">
+          <a class="lang__item" href="#" role="menuitem">🇻🇳 Tiếng Việt</a>
+          <a class="lang__item" href="#" role="menuitem">EN English</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Menu xổ xuống khi bấm 3 gạch (mobile) -->
+    <div id="accountMenu" class="account-menu" role="menu">
+      <a role="menuitem" href="#">Đăng nhập</a>
+      <a role="menuitem" href="#">Đăng ký</a>
+      <div class="account-menu__sep"></div>
+      <div class="account-menu__label">Ngôn ngữ</div>
+      <a class="account-menu__lang" href="#" data-lang="vi" role="menuitem">🇻🇳 Tiếng Việt</a>
+      <a class="account-menu__lang" href="#" data-lang="en" role="menuitem">EN English</a>
+    </div>
+  </div>
+</header>
+
+  <!-- THANH MENU DƯỚI -->
+  <nav class="main-nav" aria-label="Danh mục">
+    <div class="container main-nav__inner">
+      <ul class="menu">
+        <li><a href="#">Vé ca nhạc</a></li>
+        <li><a href="#">Văn hóa nghệ thuật</a></li>
+        <li><a href="#">Du lịch</a></li>
+        <li><a href="#">Workshop</a></li>
+        <li><a href="#">Vé xem phim</a></li>
+        <li><a href="#">Vé tham quan</a></li>
+        <li><a href="#">Thể thao</a></li>
+        <li><a href="#">Tin tức</a></li>
+      </ul>
+
+      <div class="location">
+        <label class="sr-only" for="city">Chọn địa điểm</label>
+        <div class="select-wrap">
+          <select id="city" class="select">
+            <option value="">Chọn địa điểm</option>
+            <option>Hà Nội</option>
+            <option>TP. Hồ Chí Minh</option>
+            <option>Đà Nẵng</option>
+            <option>Hải Phòng</option>
+            <option>Cần Thơ</option>
+          </select>
+          <span class="select-caret" aria-hidden="true">
+            <svg viewBox="0 0 20 20" width="14" height="14">
+              <path d="M5 7l5 6 5-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="container">
+    <span class="breadcrumb-btn">
+      Trang chủ / Du lịch
+    </span>
+  </div>
+</div>
+<!-- EVENT CARD -->
+<section class="event-listing">
+  <div class="container">
+    <article class="event-card">
+      <div class="event-media">
+        <img src="https://ticketgo.vn/uploads/images/event-logo/event_logo-4bb8450cc808587ed1da943d6269cfe1.png"
+             alt='Du lịch'>
+      </div>
+
+      <div class="event-info">
+        <h1 class="event-title">
+          Tour Tham Quan Hà Nội Trên Xe Buýt 2 Tầng Hop On Hop Off
+        </h1>
+
+        <div class="event-meta">
+          <span class="meta">
+            <!-- eye -->
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/><circle cx="12" cy="12" r="2.5" fill="#1f2325"/></svg>
+            91.200
+          </span>
+          <span class="meta">
+            <!-- pin -->
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"/></svg>
+            Hà Nội
+          </span>
+          <span class="price">VNĐ 50.000 +</span>
+        </div>
+
+        <p class="event-desc">
+          Tour Tham Quan Hà Nội Trên Xe Buýt 2 Tầng Hop On Hop Off là cách tuyệt vời để khám phá Thủ đô một cách linh hoạt và thú vị. 
+          Với lộ trình đi qua các điểm du lịch nổi tiếng như Lăng Bác, Hồ Gươm, Văn Miếu..., 
+          du khách có thể tự do lên xuống tại các điểm dừng và ngắm nhìn Hà Nội từ góc nhìn độc đáo trên tầng hai mở mái của xe buýt.
+        </p>
+      </div>
+    </article>
+  </div>
+</section>
+<!-- SEPARATOR FULL WIDTH -->
+<hr class="full-line">
+<div class="event-total-wrap">
+  <div class="container">
+    <p class="event-total">Tổng số: <strong>13</strong> Sự kiện</p>
+  </div>
+</div>
+<!-- EVENT GRID -->
+<section class="event-grid">
+  <div class="container">
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://ticketgo.vn/uploads/images/event-logo/event_logo-d2567e8e0138a1b8da37465a430c1201.jpg" alt="Show diễn Tinh Hoa Bắc Bộ">
+        <div class="event-date">
+          <span class="day">20</span>
+          <span class="month">Tháng 6</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        2.345
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Lâm Đồng
+        </span>
+        <span class="price">VNĐ 100.000 +</span>
+      </div>
+      <p class="event-caption">Vườn Ánh Sáng Lumiere Đà Lạt - Không gian nghệ thuật ánh</p>
+    </article>
+
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://ticketgo.vn/uploads/images/event-logo/event_logo-816c02596529c37f290976777bfc3ae1.jpg" alt="">
+        <div class="event-date">
+          <span class="day">20</span>
+          <span class="month">Tháng 6</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        133.200
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Hà Nội
+        </span>
+        <span class="price">VNĐ 10.000 +</span>
+      </div>
+      <p class="event-caption">I-Museum - Bảo tàng nghệ thuật đa giác quan đầu tiên tại</p>
+    </article>
+
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://ticketgo.vn/uploads/images/event-logo/event_logo-0bee44ddc32b8ce170e96d1e0ebcc80c.png" alt="">
+        <div class="event-date">
+          <span class="day">21</span>
+          <span class="month">Tháng 6</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        14.844
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Hồ Chí Minh
+        </span>
+        <span class="price">VNĐ 30.000 +</span>
+      </div>
+      <p class="event-caption">Tour tham quan Sài Gòn – Chợ Lớn – Khu Vực Người Hoa bằng xe bus 2 tầng | Hop On Hop Off Viet Nam</p>
+    </article>
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://ticketgo.vn/uploads/images/event-logo/event_logo-6faf4eae3413f2124b080a8050adabb2.jpg" alt="">
+        <div class="event-date">
+          <span class="day">21</span>
+          <span class="month">Tháng 6</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        7.844
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Lâm Đồng
+        </span>
+        <span class="price">VNĐ 390.000 +</span>
+      </div>
+      <p class="event-caption">Voucher siêu ưu đãi - Trọn gói trải nghiệm cắm trại cao cấp</p>
+    </article>
+
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://ticketgo.vn/uploads/images/event-logo/event_logo-d1e38075ab5f4f157efa17c4919da9d3.jpg" alt="">
+        <div class="event-date">
+          <span class="day">21</span>
+          <span class="month">Tháng 6</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        6.789
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Hà Nội
+        </span>
+        <span class="price">VNĐ 140.000 +</span>
+      </div>
+      <p class="event-caption">Bán vé vào cửa THỦY CUNG có quy mô lớn nhất Việt Nam -</p>
+    </article>
+
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://ticketgo.vn/uploads/images/event-logo/event_logo-4b0fc9ae25861a19791ef8bde033c87c.jpg" alt="">
+        <div class="event-date">
+          <span class="day">28</span>
+          <span class="month">Tháng 6</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        987
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Hà Nội
+        </span>
+        <span class="price">VNĐ 150.000 +</span>
+      </div>
+      <p class="event-caption">Vé Cáp treo Hương Bình - Kết nối Tam giác tâm linh: Chùa</p>
+    </article>
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://ticketgo.vn/uploads/images/event-logo/event_logo-fb242ce559df1f54db62a703bde0b409.jpg" alt="">
+        <div class="event-date">
+          <span class="day">28</span>
+          <span class="month">Tháng 06</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        2.607
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Huế
+        </span>
+        <span class="price">VNĐ 90.000 +</span>
+      </div>
+      <p class="event-caption">Vé xe bus 2 tầng ngắm cảnh tại Huế - Vietnam Sightseeing</p>
+    </article>
+
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://ticketgo.vn/uploads/images/event-logo/event_logo-c6394664786d6fd2d161eb7e5209d18f.jpg" alt="">
+        <div class="event-date">
+          <span class="day">29</span>
+          <span class="month">Tháng 6</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        4.400
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Hưng Yên
+        </span>
+        <span class="price">VNĐ 150.000 +</span>
+      </div>
+      <p class="event-caption">Bán vé vào cửa Công viên nước VinWonders Hà Nội Water</p>
+    </article>
+
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://ticketgo.vn/uploads/images/event-logo/event_logo-e29c58f90311347cbb8a419af7789aaf.jpg" alt="">
+        <div class="event-date">
+          <span class="day">03</span>
+          <span class="month">Tháng 7</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        3.456
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Hồ Chí Minh
+        </span>
+        <span class="price">VNĐ 35.000 +</span>
+      </div>
+      <p class="event-caption">Vé trải nghiệm bắn súng thể thao tại Saigon Sniper</p>
+    </article>
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://ticketgo.vn/uploads/images/event-logo/event_logo-f0369d828fbed574ae76e73a78532afb.jpg" alt="">
+        <div class="event-date">
+          <span class="day">04</span>
+          <span class="month">Tháng 7</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        9.854
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Hồ Chí Minh
+        </span>
+        <span class="price">VNĐ 99.000 +</span>
+      </div>
+      <p class="event-caption">Vé vào cửa Bảo tàng nghệ thuật Quang San - Quang San Art</p>
+    </article>
+
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://ticketgo.vn/uploads/images/event-logo/event_logo-e66cd5be500931b8325ba0984bdaa554.jpg" alt="The Wandering Rose">
+        <div class="event-date">
+          <span class="day">03</span>
+          <span class="month">Tháng 7</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        10.202
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Hồ Chí Minh
+        </span>
+        <span class="price">VNĐ 140.000 +</span>
+      </div>
+      <p class="event-caption">Vé vào cửa triển lãm Nghệ thuật Ánh sáng Metashow</p>
+    </article>
+
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://ticketgo.vn/uploads/images/event-logo/event_logo-94fe638ab31dd61717a6ea39a88a2d35.jpg" alt="">
+        <div class="event-date">
+          <span class="day">28</span>
+          <span class="month">Tháng 6</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        1.029
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Lâm Đồng
+        </span>
+        <span class="price">VNĐ 430.000 +</span>
+      </div>
+      <p class="event-caption">Vé xe bus 2 tầng ngắm cảnh tại Đà Lạt - Vietnam Sightseeing </p>
+    </article>
+  </div>
+</section>
+<!-- NÚT XEM THÊM -->
+<div class="see-more">
+  <a href="#" class="see-more-btn">
+    <!-- icon menu -->
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="3" y="6" width="18" height="2" fill="currentColor"/>
+      <rect x="3" y="11" width="18" height="2" fill="currentColor"/>
+      <rect x="3" y="16" width="18" height="2" fill="currentColor"/>
+    </svg>
+    XEM THÊM 
+  </a>
+</div>
+<!-- BLOCK BẮT ĐẦU BÁN VÉ -->
+<section class="start-selling">
+  <div class="container">
+    <h2 class="start-title">
+      Bắt đầu bán vé sự kiện của bạn với 
+      <span class="logo-text">
+        Ticket<span class="go">Go</span>
+      </span>
+    </h2>
+  </div>
+</section>
+<!-- BLOCK LIÊN HỆ KINH DOANH -->
+<section class="contact-business">
+  <div class="container">
+    <p class="contact-text">
+      Liên hệ bộ phận phát triển kinh doanh, vui lòng gọi:
+      <span class="contact-phone">08.999.80.818</span> - <span class="contact-phone">0243.788.00.99</span>
+    </p>
+  </div>
+</section>
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Cột 1: Liên hệ -->
+      <div class="footer-col">
+        <h4>Liên Hệ Hợp Tác</h4>
+        <p>Điện thoại: 0243.788.00.99 (8:30 - 17:00)</p>
+        <p>Hotline: 08.999.80.818</p>
+        <p>Email: <a href="mailto:chamsockhachhang@ticketgo.vn">chamsockhachhang@ticketgo.vn</a></p>
+        <p>Địa chỉ: Số 1, Phạm Văn Bạch, phường Yên Hòa, quận Cầu Giấy, Hà Nội.</p>
+        <p>Ứng dụng TicketGo</p>
+        <a href="#"><img src="https://www.ticketgo.vn/images/appstore.png" alt="Tải về trên App Store" class="store-btn"></a>
+      </div>
+
+      <!-- Cột 2: Thông tin -->
+      <div class="footer-col">
+        <h4>Thông tin</h4>
+        <ul>
+          <li><a href="#">Về chúng tôi</a></li>
+          <li><a href="#">Khuyến mãi</a></li>
+          <li><a href="#">Phương thức thanh toán</a></li>
+          <li><a href="#">Chính sách bảo mật và các điều khoản</a></li>
+          <li><a href="#">Hướng dẫn đặt vé</a></li>
+          <li><a href="#">Các câu hỏi thường gặp</a></li>
+          <li><a href="#">Chính sách điều khoản sử dụng</a></li>
+        </ul>
+      </div>
+
+      <!-- Cột 3: Khách hàng -->
+      <div class="footer-col">
+        <h4>Khách hàng</h4>
+        <ul>
+          <li><a href="#">Đăng nhập dành cho đối tác</a></li>
+          <li><a href="#">Tài khoản</a></li>
+          <li><a href="#">Gửi sự kiện</a></li>
+          <li><a href="#">Danh sách sự kiện</a></li>
+          <li><a href="#">Sự kiện đã diễn ra</a></li>
+          <li><a href="#">Chương trình Go Xu</a></li>
+        </ul>
+      </div>
+
+      <!-- Cột 4: Đăng ký email & MXH -->
+      <div class="footer-col">
+        <h4>Đăng ký nhận email</h4>
+        <form class="subscribe">
+          <input type="email" placeholder="Email của bạn" />
+          <button type="submit">→</button>
+        </form>
+        <div class="socials">
+          <a href=""><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-pinterest"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        <div class="certs">
+          <img src="https://www.ticketgo.vn/images/ticketgo/dathongbao_bct.png" alt="Đã thông báo bộ công thương">
+          <img src="https://images.dmca.com/Badges/dmca_protected_sml_120n.png?ID=c6007083-db1a-4a4f-82aa-206ed787e27b" alt="DMCA Protected">
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

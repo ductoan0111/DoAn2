@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TicketGo</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link href="orders.css" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- ========================= HEADER ========================= -->
+  <header class="site-header">
+    <div class="container header-wrap">
+      <a href="#" class="logo" aria-label="TicketGo">
+        <div>
+          <div class="logo__wordmark"><span class="ticket">Ticket</span><span class="go">Go</span></div>
+          <div class="logo__tagline">Đi chơi đâu, lên TicketGo</div>
+        </div>
+      </a>
+      <nav class="actions" aria-label="Hành động">
+        <button id="btnTheme" class="btn btn-icon" title="Đổi giao diện (Ctrl/⌘+K)"><i class="fa fa-moon"></i></button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========================= MAIN ========================= -->
+  <main class="container">
+    <!-- RIBBON + TITLE + ACTIONS -->
+    <section class="ribbon">
+      <div class="page-title">
+        <div>
+          <h1>Đơn hàng của tôi <span id="totalCount" class="pill">0 đơn</span></h1>
+          <p class="muted" style="margin:.25rem 0 0">Dữ liệu lưu <b>cục bộ</b> trên trình duyệt qua <code>localStorage</code>. Xoá dữ liệu trình duyệt ⇒ danh sách mất theo.</p>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button id="btnImport" class="btn"><i class="fa fa-file-import"></i> Import JSON</button>
+          <button id="btnExportAll" class="btn"><i class="fa fa-file-export"></i> Xuất tất cả JSON</button>
+          <button id="btnExportCSV" class="btn"><i class="fa fa-table"></i> Xuất CSV</button>
+          <button id="btnSeed" class="btn btn--ghost"><i class="fa fa-wand-magic-sparkles"></i> Thêm đơn mẫu</button>
+          <button id="btnClear" class="btn btn--bad"><i class="fa fa-trash"></i> Xoá tất cả</button>
+          <button id="btnRefresh" class="btn btn--pri"><i class="fa fa-rotate"></i> Tải lại</button>
+        </div>
+      </div>
+
+      <!-- FILTERS TOOLBAR -->
+      <div class="toolbar">
+        <div class="field">
+          <input id="q" type="search" placeholder="Tìm mã đơn, tên, email, SĐT… (nhấn / để tìm)" aria-label="Tìm kiếm">
+        </div>
+        <div class="field">
+          <input id="from" type="date" aria-label="Từ ngày">
+        </div>
+        <div class="field">
+          <input id="to" type="date" aria-label="Đến ngày">
+        </div>
+        <div class="field">
+          <select id="sort" aria-label="Sắp xếp">
+            <option value="newest">Mới nhất</option>
+            <option value="oldest">Cũ nhất</option>
+            <option value="total-desc">Tổng tiền ↓</option>
+            <option value="total-asc">Tổng tiền ↑</option>
+            <option value="name-asc">Tên khách A→Z</option>
+            <option value="name-desc">Tên khách Z→A</option>
+          </select>
+        </div>
+        <div class="field field--pair">
+          <input id="min" type="number" inputmode="numeric" placeholder="Từ tiền" aria-label="Từ tiền">
+          <input id="max" type="number" inputmode="numeric" placeholder="Đến tiền" aria-label="Đến tiền">
+        </div>
+      </div>
+    </section>
+
+    <!-- EMPTY STATE -->
+    <div id="empty" class="empty" aria-live="polite">
+      <svg viewBox="0 0 200 200" fill="none" aria-hidden="true">
+        <circle cx="100" cy="100" r="96" stroke="currentColor" opacity=".15" stroke-width="8"/>
+        <path d="M50 80h100v60a6 6 0 0 1-6 6H56a6 6 0 0 1-6-6V80z" fill="currentColor" opacity=".08"/>
+        <rect x="60" y="60" width="80" height="24" rx="6" fill="currentColor" opacity=".12"/>
+      </svg>
+      <div>Chưa có đơn hàng nào. Hãy thêm đơn mới hoặc dùng <b>Thêm đơn mẫu</b> để trải nghiệm.</div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-wrap" role="region" aria-label="Danh sách đơn">
+      <table id="tbl">
+        <thead>
+          <tr>
+            <th class="select-col"><input id="ckAll" type="checkbox" aria-label="Chọn tất cả"></th>
+            <th>Mã đơn</th>
+            <th>Thời gian</th>
+            <th>Khách hàng</th>
+            <th class="num">Số vé</th>
+            <th class="num">Tổng tiền</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- PAGINATION -->
+    <div class="pager" aria-label="Phân trang">
+      <div class="info">Trang <span id="pageNow">1</span>/<span id="pageTotal">1</span> • <span id="rowInfo">0</span> dòng</div>
+      <div class="group">
+        <select id="per" class="field" style="width:auto;height:36px">
+          <option value="10">10 dòng</option>
+          <option value="20">20 dòng</option>
+          <option value="50">50 dòng</option>
+          <option value="100">100 dòng</option>
+        </select>
+        <button id="prev" class="btn btn-icon" title="Trang trước"><i class="fa fa-angle-left"></i></button>
+        <button id="next" class="btn btn-icon" title="Trang sau"><i class="fa fa-angle-right"></i></button>
+      </div>
+    </div>
+
+    <!-- BULK BAR -->
+    <div id="bulk" class="bulkbar" aria-live="polite">
+      <div class="badge"><i class="fa fa-check-double"></i> <span id="bulkCount">0</span> đã chọn</div>
+      <span style="flex:1"></span>
+      <button id="bulkExportJSON" class="btn"><i class="fa fa-file-export"></i> Xuất JSON</button>
+      <button id="bulkExportCSV" class="btn"><i class="fa fa-table"></i> Xuất CSV</button>
+      <button id="bulkDelete" class="btn btn--bad"><i class="fa fa-trash"></i> Xoá</button>
+    </div>
+  </main>
+
+  <!-- MODAL -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="dialog">
+      <header>
+        <strong>Chi tiết đơn</strong>
+        <div style="display:flex;gap:8px">
+          <button id="btnPrint" class="btn"><i class="fa fa-print"></i> In</button>
+          <button id="btnClose" class="btn btn-icon" aria-label="Đóng"><i class="fa fa-xmark"></i></button>
+        </div>
+      </header>
+      <div class="content" id="modalBody"></div>
+      <div class="print-only" style="padding:0 16px 16px">
+        <small class="muted">In từ TicketGo</small>
+      </div>
+    </div>
+  </div>
+
+  <input id="filePicker" type="file" accept="application/json" hidden>
+
+  <!-- ========================= JS (giữ nguyên logic, tinh chỉnh nhỏ UI) ========================= -->
+  <script>
+  // STATE & UTILS
+  const KEY = 'ticketgoOrders';
+  const PREF_THEME = 'pref-theme';
+
+  const $tbody = document.getElementById('tbody');
+  const $empty = document.getElementById('empty');
+  const $totalCount = document.getElementById('totalCount');
+  const $rowInfo = document.getElementById('rowInfo');
+  const $pageNow = document.getElementById('pageNow');
+  const $pageTotal = document.getElementById('pageTotal');
+  const $bulk = document.getElementById('bulk');
+  const $bulkCount = document.getElementById('bulkCount');
+  const $ckAll = document.getElementById('ckAll');
+
+  const state = {
+    q:'', from:'', to:'', min:'', max:'', sort:'newest',
+    page:1, per:10, selected:new Set(),
+    cache:[]
+  };
+
+  const toVND = n => (n||0).toLocaleString('vi-VN')+' VNĐ';
+  const fmtDate = iso => { try{ return new Date(iso).toLocaleString('vi-VN'); } catch{ return iso } };
+  const clamp = (n,min,max)=>Math.max(min,Math.min(max,n));
+  const el = (html) => { const t=document.createElement('template'); t.innerHTML=html.trim(); return t.content.firstElementChild; };
+  const toast = (msg) => {
+    const t = el(`<div class="toast" role="status" aria-live="polite">${msg}</div>`); document.body.appendChild(t);
+    requestAnimationFrame(()=>t.classList.add('is-in'));
+    setTimeout(()=>{ t.classList.remove('is-in'); t.addEventListener('transitionend',()=>t.remove(),{once:true}); }, 2200);
+  };
+  const getAll = () => JSON.parse(localStorage.getItem(KEY)||'[]');
+  const setAll = (arr) => localStorage.setItem(KEY, JSON.stringify(arr));
+
+  // FILTER + SORT + PAGINATE
+  function pipeline(list){
+    const q = state.q.trim().toLowerCase();
+    const from = state.from ? new Date(state.from+'T00:00:00') : null;
+    const to   = state.to   ? new Date(state.to+'T23:59:59') : null;
+    const min  = state.min? (+state.min) : null;
+    const max  = state.max? (+state.max) : null;
+
+    let out = list.filter(o=>{
+      if(q){
+        const hay = [o.id, o.customer?.fullName, o.customer?.email, o.customer?.phone].filter(Boolean).join(' ').toLowerCase();
+        if(!hay.includes(q)) return false;
+      }
+      if(from || to){
+        const d = new Date(o.createdAt);
+        if(from && d<from) return false;
+        if(to && d>to) return false;
+      }
+      if(min!=null && (o.total||0) < min) return false;
+      if(max!=null && (o.total||0) > max) return false;
+      return true;
+    });
+
+    out.sort((a,b)=>{
+      if(state.sort==='newest') return new Date(b.createdAt)-new Date(a.createdAt);
+      if(state.sort==='oldest') return new Date(a.createdAt)-new Date(b.createdAt);
+      if(state.sort==='total-desc') return (b.total||0)-(a.total||0);
+      if(state.sort==='total-asc')  return (a.total||0)-(b.total||0);
+      if(state.sort==='name-asc')   return (a.customer?.fullName||'').localeCompare(b.customer?.fullName||'');
+      if(state.sort==='name-desc')  return (b.customer?.fullName||'').localeCompare(a.customer?.fullName||'');
+      return 0;
+    });
+
+    const total = out.length;
+    const pages = Math.max(1, Math.ceil(total / state.per));
+    state.page = clamp(state.page, 1, pages);
+    const start = (state.page-1)*state.per;
+    const rows = out.slice(start, start+state.per);
+    return {rows,total,pages};
+  }
+
+  // RENDER
+  function renderRows(rows){
+    $tbody.innerHTML = '';
+    rows.forEach((o)=>{
+      const checked = state.selected.has(o.id) ? 'checked' : '';
+      const tr = el(`
+        <tr class="${checked ? 'is-selected':''}">
+          <td class="select-col"><input type="checkbox" data-id="${o.id}" ${checked} aria-label="Chọn đơn ${o.id}"></td>
+          <td style="font-weight:800;display:flex;gap:8px;align-items:center">
+            <span>${o.id}</span>
+            <button class="btn btn-icon btn--ghost" data-copy="${o.id}" title="Sao chép mã"><i class="fa fa-copy"></i></button>
+          </td>
+          <td>${fmtDate(o.createdAt)}</td>
+          <td>
+            ${o.customer?.fullName || '<span class="muted">—</span>'}
+            ${o.customer?.email ? ` • <a href="mailto:${o.customer.email}">${o.customer.email}</a>`:''}
+            ${o.customer?.phone ? ` • <a href="tel:${o.customer.phone}">${o.customer.phone}</a>`:''}
+          </td>
+          <td class="num">${o.qty}</td>
+          <td class="num"><strong>${toVND(o.total)}</strong></td>
+          <td class="row-actions">
+            <button class="btn btn--ghost" data-view="${o.id}"><i class="fa fa-eye"></i> Xem</button>
+            <button class="btn" data-dl="${o.id}"><i class="fa fa-download"></i> Tải JSON</button>
+            <button class="btn btn--bad" data-del="${o.id}"><i class="fa fa-trash"></i> Xoá</button>
+          </td>
+        </tr>
+      `);
+      $tbody.appendChild(tr);
+    });
+  }
+
+  function render(){
+    const orders = getAll();
+    state.cache = orders;
+    $totalCount.textContent = orders.length + ' đơn';
+
+    const {rows,total,pages} = pipeline(orders);
+    $pageTotal.textContent = pages;
+    $pageNow.textContent = state.page;
+    $rowInfo.textContent = `${rows.length}/${total}`;
+    document.getElementById('prev').disabled = state.page<=1;
+    document.getElementById('next').disabled = state.page>=pages;
+
+    $ckAll.checked = rows.length>0 && rows.every(r=>state.selected.has(r.id));
+    $bulkCount.textContent = state.selected.size;
+    $bulk.classList.toggle('show', state.selected.size>0);
+
+    if(total===0){ $empty.classList.remove('hidden'); $empty.style.display='block'; document.querySelector('.table-wrap').style.display='none'; }
+    else{ $empty.style.display='none'; document.querySelector('.table-wrap').style.display='block'; }
+
+    renderRows(rows);
+  }
+
+  // MODAL
+  const $modal = document.getElementById('modal');
+  const $modalBody = document.getElementById('modalBody');
+  function openModal(order){
+    $modalBody.innerHTML = `
+      <div class="grid" style="grid-template-columns:1.2fr .8fr">
+        <div>
+          <div class="muted">Mã đơn</div><div class="badge">${order.id}</div>
+        </div>
+        <div>
+          <div class="muted">Thời gian</div><div>${fmtDate(order.createdAt)}</div>
+        </div>
+        <div>
+          <div class="muted">Khách hàng</div>
+          <div><b>${order.customer?.fullName||'—'}</b></div>
+          ${order.customer?.email?`<div class="muted"><i class="fa fa-envelope"></i> ${order.customer.email}</div>`:''}
+          ${order.customer?.phone?`<div class="muted"><i class="fa fa-phone"></i> ${order.customer.phone}</div>`:''}
+        </div>
+      </div>
+      <ul class="items">
+        ${order.items.map(it=>`
+          <li>
+            <div>${it.name}</div>
+            <div class="num">${toVND(it.price)}</div>
+            <div class="num">SL: <b>${it.qty}</b></div>
+          </li>
+        `).join('')}
+      </ul>
+      <div class="total">
+        <div>Tổng cộng</div>
+        <div style="font-size:18px">${toVND(order.total)}</div>
+      </div>
+    `;
+    $modal.setAttribute('aria-hidden','false');
+    $modal.classList.add('open');
+  }
+  function closeModal(){ $modal.classList.remove('open'); $modal.setAttribute('aria-hidden','true'); }
+
+  // CSV
+  function toCSV(rows){
+    const esc = s => ('"'+String(s??'').replace(/"/g,'""')+'"');
+    const header = ['id','createdAt','fullName','email','phone','qty','total'];
+    const body = rows.map(o=>[
+      o.id, o.createdAt, o.customer?.fullName||'', o.customer?.email||'', o.customer?.phone||'', o.qty, o.total
+    ].map(esc).join(','));
+    return [header.join(','), ...body].join('\n');
+  }
+
+  // EVENTS
+  function download(filename, content, type='text/plain'){
+    const blob = new Blob([content], {type}); const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download=filename; a.click(); URL.revokeObjectURL(url);
+  }
+
+  // Toolbar inputs
+  const bind = (id, prop, cast=(v)=>v)=> document.getElementById(id).addEventListener('input', (e)=>{ state[prop]=cast(e.target.value); state.page=1; render(); });
+  bind('q','q'); bind('from','from'); bind('to','to'); bind('sort','sort'); bind('min','min'); bind('max','max');
+  document.getElementById('per').addEventListener('change', e=>{ state.per=+e.target.value||10; state.page=1; render(); });
+  document.getElementById('prev').addEventListener('click', ()=>{ state.page=Math.max(1,state.page-1); render(); });
+  document.getElementById('next').addEventListener('click', ()=>{ state.page=state.page+1; render(); });
+
+  // Table actions (event delegation)
+  document.getElementById('tbl').addEventListener('click', (e)=>{
+    const b = e.target.closest('button'); const ck = e.target.closest('input[type="checkbox"]');
+    if(b){
+      const id = b.dataset.view||b.dataset.dl||b.dataset.del||b.dataset.copy;
+      const orders = state.cache;
+      const o = orders.find(x=>x.id===id);
+      if(b.dataset.view){ openModal(o); }
+      if(b.dataset.dl){ download(`order-${o.id}.json`, JSON.stringify(o, null, 2), 'application/json'); }
+      if(b.dataset.copy){ navigator.clipboard.writeText(id).then(()=>toast('Đã sao chép mã đơn')); }
+      if(b.dataset.del){
+        if(confirm('Xoá đơn này khỏi trình duyệt?')){
+          const next = orders.filter(x=>x.id!==id); setAll(next); state.selected.delete(id); render(); toast('Đã xoá 1 đơn');
+        }
+      }
+    }
+    if(ck && ck.dataset.id){
+      const id = ck.dataset.id;
+      ck.checked ? state.selected.add(id) : state.selected.delete(id);
+      document.getElementById('bulkCount').textContent = state.selected.size;
+      $bulk.classList.toggle('show', state.selected.size>0);
+      // sync row visual + select-all
+      ck.closest('tr')?.classList.toggle('is-selected', ck.checked);
+      const boxes = [...document.querySelectorAll('#tbody input[type="checkbox"]')];
+      $ckAll.checked = boxes.length>0 && boxes.every(i=>i.checked);
+    }
+  });
+
+  // Select all current page
+  $ckAll.addEventListener('change', ()=>{
+    const boxes = [...document.querySelectorAll('#tbody input[type="checkbox"]')];
+    boxes.forEach(i=>{
+      i.checked = $ckAll.checked; const id=i.dataset.id;
+      if($ckAll.checked) state.selected.add(id); else state.selected.delete(id);
+      i.closest('tr')?.classList.toggle('is-selected', $ckAll.checked);
+    });
+    document.getElementById('bulkCount').textContent = state.selected.size;
+    $bulk.classList.toggle('show', state.selected.size>0);
+  });
+
+  // Bulk actions
+  document.getElementById('bulkDelete').addEventListener('click', ()=>{
+    if(state.selected.size===0) return;
+    if(confirm(`Xoá ${state.selected.size} đơn đã chọn?`)){
+      const next = getAll().filter(o=>!state.selected.has(o.id)); setAll(next);
+      state.selected.clear(); render(); toast('Đã xoá các đơn đã chọn');
+    }
+  });
+  document.getElementById('bulkExportJSON').addEventListener('click', ()=>{
+    const rows = getAll().filter(o=>state.selected.has(o.id));
+    if(!rows.length) return toast('Chưa chọn dòng nào');
+    download('orders-selected.json', JSON.stringify(rows, null, 2), 'application/json');
+  });
+  document.getElementById('bulkExportCSV').addEventListener('click', ()=>{
+    const rows = getAll().filter(o=>state.selected.has(o.id));
+    if(!rows.length) return toast('Chưa chọn dòng nào');
+    download('orders-selected.csv', toCSV(rows), 'text/csv');
+  });
+
+  // Top actions
+  document.getElementById('btnExportAll').addEventListener('click', ()=>{
+    const rows = getAll(); if(!rows.length) return toast('Không có dữ liệu để xuất');
+    download('orders-all.json', JSON.stringify(rows, null, 2), 'application/json');
+  });
+  document.getElementById('btnExportCSV').addEventListener('click', ()=>{
+    const rows = getAll(); if(!rows.length) return toast('Không có dữ liệu để xuất');
+    download('orders-all.csv', toCSV(rows), 'text/csv');
+  });
+  document.getElementById('btnClear').addEventListener('click', ()=>{
+    if(confirm('Xoá tất cả đơn hàng đã lưu trên trình duyệt?')){
+      localStorage.removeItem(KEY); state.selected.clear(); render(); toast('Đã xoá hết');
+    }
+  });
+  document.getElementById('btnRefresh').addEventListener('click', render);
+
+  // Import
+  const $file = document.getElementById('filePicker');
+  document.getElementById('btnImport').addEventListener('click', ()=> $file.click());
+  $file.addEventListener('change', async (e)=>{
+    const f = e.target.files?.[0]; if(!f) return;
+    try{
+      const txt = await f.text(); const arr = JSON.parse(txt);
+      if(!Array.isArray(arr)) throw new Error('File không phải mảng đơn');
+      const map = new Map(getAll().map(o=>[o.id,o]));
+      arr.forEach(o=>map.set(o.id,o));
+      const next = [...map.values()];
+      setAll(next); render(); toast(`Đã import ${arr.length} dòng`);
+    }catch(err){ alert('Import lỗi: '+err.message); }
+    e.target.value='';
+  });
+
+  // Modal
+  document.getElementById('btnClose').addEventListener('click', closeModal);
+  document.getElementById('btnPrint').addEventListener('click', ()=>window.print());
+  document.getElementById('modal').addEventListener('click', (e)=>{ if(e.target.id==='modal') closeModal(); });
+
+  // Seed sample
+  document.getElementById('btnSeed').addEventListener('click', ()=>{
+    const ex = [
+      { id:'TG-24001', createdAt:new Date(Date.now()-86400000*2).toISOString(), qty:3, total:450000, customer:{fullName:'Nguyễn Văn A', email:'a@example.com', phone:'0900000001'}, items:[{name:'Vé Standard', price:150000, qty:3}]},
+      { id:'TG-24002', createdAt:new Date(Date.now()-86400000*1.2).toISOString(), qty:2, total:700000, customer:{fullName:'Trần B', email:'b@example.com', phone:'0900000002'}, items:[{name:'Vé VIP', price:350000, qty:2}]},
+      { id:'TG-24003', createdAt:new Date().toISOString(), qty:4, total:600000, customer:{fullName:'Lê C', email:'c@example.com', phone:'0900000003'}, items:[{name:'Vé Standard', price:150000, qty:4}]},
+      { id:'TG-24004', createdAt:new Date(Date.now()-86400000*2).toISOString(), qty:5, total:450000, customer:{fullName:'Đỗ Văn D', email:'d@example.com', phone:'0900000004'}, items:[{name:'Vé Standard', price:190000, qty:5}]},
+      { id:'TG-24005', createdAt:new Date(Date.now()-86400000*1.2).toISOString(), qty:6, total:700000, customer:{fullName:'Hoàng Thị E', email:'e@example.com', phone:'0900000005'}, items:[{name:'Vé VIP', price:350000, qty:6}]},
+      { id:'TG-24006', createdAt:new Date().toISOString(), qty:7, total:600000, customer:{fullName:'Đinh Thị F', email:'f@example.com', phone:'0900000006'}, items:[{name:'Vé Standard', price:150000, qty:7}]}
+    ];
+    const map = new Map(getAll().map(o=>[o.id,o])); ex.forEach(o=>map.set(o.id,o));
+    setAll([...map.values()]); state.page=1; render(); toast('Đã thêm đơn mẫu');
+  });
+
+  // THEME
+  const $btnTheme = document.getElementById('btnTheme');
+  function applyTheme(){
+    const t = localStorage.getItem(PREF_THEME)||'dark';
+    document.documentElement.setAttribute('data-theme', t);
+    $btnTheme.innerHTML = t==='dark' ? '<i class="fa fa-sun"></i>' : '<i class="fa fa-moon"></i>';
+  }
+  $btnTheme.addEventListener('click', ()=>{
+    const cur = document.documentElement.getAttribute('data-theme')||'dark';
+    const next = cur==='dark'?'light':'dark';
+    localStorage.setItem(PREF_THEME, next); applyTheme();
+  });
+  document.addEventListener('keydown', (e)=>{ if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='k'){ e.preventDefault(); $btnTheme.click(); }});
+  document.addEventListener('keydown', (e)=>{ if(e.key==='/'){ const $q=document.getElementById('q'); $q.focus(); $q.select(); e.preventDefault(); }});
+
+  // BOOT
+  (function init(){ applyTheme(); render(); })();
+  </script>
+</body>
+</html>

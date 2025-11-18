@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TicketGo</title>
+  <link rel="stylesheet" href="movie ticket.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <script src="movie ticket.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+  <div class="container header-wrap">
+    <!-- Logo -->
+    <a href="#" class="logo" aria-label="TicketGo">
+      <div>
+        <div class="logo__wordmark">
+          <span class="ticket">Ticket</span><span class="go">Go</span>
+        </div>
+        <div class="logo__tagline">Đi chơi đâu, lên Ticketgo</div>
+      </div>
+    </a>
+
+    <!-- Search -->
+    <form class="search" role="search" aria-label="Tìm kiếm">
+      <div class="search__field">
+        <input class="search__input" type="search" placeholder="Tìm kiếm..." aria-label="Tìm kiếm" />
+        <button class="search__btn" type="submit" aria-label="Tìm">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"></circle>
+            <line x1="16.65" y1="16.65" x2="22" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+          </svg>
+        </button>
+      </div>
+    </form>
+
+    <!-- Nút hamburger (mobile) -->
+    <button class="hamburger" aria-label="Mở menu tài khoản" aria-expanded="false" aria-controls="accountMenu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Actions (desktop) -->
+    <nav class="actions" aria-label="Tài khoản & ngôn ngữ">
+      <a class="link" href="#">Đăng nhập</a>
+      <a class="link" href="#">Đăng ký</a>
+
+      <!-- Language -->
+      <div class="lang">
+        <button class="lang__btn" aria-haspopup="menu" aria-expanded="false">
+          <span class="flag" aria-hidden="true">
+            <svg viewBox="0 0 3 2" width="18" height="12" xmlns="http://www.w3.org/2000/svg">
+              <rect width="3" height="2" fill="#da251d"></rect>
+              <polygon points="1.5,0.3 1.7,0.9 2.3,0.9 1.8,1.2 2,1.8 1.5,1.45 1,1.8 1.2,1.2 0.7,0.9 1.3,0.9" fill="#ff0"></polygon>
+            </svg>
+          </span>
+          <span class="label">VN</span>
+          <span class="caret" aria-hidden="true">
+            <svg viewBox="0 0 20 20" width="10" height="10">
+              <path d="M5 7l5 6 5-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+            </svg>
+          </span>
+        </button>
+        <div class="lang__menu" role="menu">
+          <a class="lang__item" href="#" role="menuitem">🇻🇳 Tiếng Việt</a>
+          <a class="lang__item" href="#" role="menuitem">EN English</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Menu tài khoản (hiện khi bấm 3 gạch trên mobile) -->
+    <div id="accountMenu" class="account-menu" role="menu">
+      <a role="menuitem" href="#">Đăng nhập</a>
+      <a role="menuitem" href="#">Đăng ký</a>
+      <div class="account-menu__sep"></div>
+      <div class="account-menu__label">Ngôn ngữ</div>
+      <a class="account-menu__lang" href="#" data-lang="vi" role="menuitem">🇻🇳 Tiếng Việt</a>
+      <a class="account-menu__lang" href="#" data-lang="en" role="menuitem">EN English</a>
+    </div>
+  </div>
+</header>
+
+  <!-- THANH MENU DƯỚI -->
+  <nav class="main-nav" aria-label="Danh mục">
+    <div class="container main-nav__inner">
+      <ul class="menu">
+        <li><a href="#">Vé ca nhạc</a></li>
+        <li><a href="#">Văn hóa nghệ thuật</a></li>
+        <li><a href="#">Du lịch</a></li>
+        <li><a href="#">Workshop</a></li>
+        <li><a href="#">Vé xem phim</a></li>
+        <li><a href="#">Vé tham quan</a></li>
+        <li><a href="#">Thể thao</a></li>
+        <li><a href="#">Tin tức</a></li>
+      </ul>
+
+      <div class="location">
+        <label class="sr-only" for="city">Chọn địa điểm</label>
+        <div class="select-wrap">
+          <select id="city" class="select">
+            <option value="">Chọn địa điểm</option>
+            <option>Hà Nội</option>
+            <option>TP. Hồ Chí Minh</option>
+            <option>Đà Nẵng</option>
+            <option>Hải Phòng</option>
+            <option>Cần Thơ</option>
+          </select>
+          <span class="select-caret" aria-hidden="true">
+            <svg viewBox="0 0 20 20" width="14" height="14">
+              <path d="M5 7l5 6 5-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="container">
+    <span class="breadcrumb-btn">
+      Trang chủ / Vé xem phim
+    </span>
+  </div>
+</div>
+<!-- EVENT CARD -->
+<section class="event-listing">
+  <div class="container">
+    <article class="event-card">
+      <div class="event-media">
+        <img src="https://media.lottecinemavn.com/Media/MovieFile//MovieImg/202508/11816_105_100003.jpg"
+             alt=''>
+      </div>
+
+      <div class="event-info">
+        <h1 class="event-title">
+          Mưa Đỏ là bộ phim lịch sử Việt Nam tái hiện cuộc chiến đấu bi tráng tại thành cổ Quảng Trị năm 1972.
+        </h1>
+
+        <div class="event-meta">
+          <span class="meta">
+            <!-- eye -->
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/><circle cx="12" cy="12" r="2.5" fill="#1f2325"/></svg>
+            1.000.000
+          </span>
+          <span class="meta">
+            <!-- pin -->
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"/></svg>
+            Hà Nội
+          </span>
+          <span class="price">VNĐ 250.000 +</span>
+        </div>
+
+        <p class="event-desc">
+          Bộ phim Mưa Đỏ tái hiện một giai đoạn lịch sử bi tráng của dân tộc, lấy bối cảnh cuộc chiến đấu ác liệt tại thành cổ Quảng Trị năm 1972.
+           Phim khắc họa tinh thần quả cảm, sự hy sinh kiên cường của những người lính trẻ cùng nhân dân nơi tuyến lửa,
+            đồng thời khơi gợi niềm tự hào và lòng biết ơn đối với thế hệ cha anh đã ngã xuống vì độc lập, tự do của Tổ quốc.
+           Với cách kể chân thực, xúc động, Mưa Đỏ không chỉ là một tác phẩm điện ảnh, mà còn là lời nhắc nhớ về giá trị của hòa bình hôm nay.
+        </p>
+      </div>
+    </article>
+  </div>
+</section>
+<!-- SEPARATOR FULL WIDTH -->
+<hr class="full-line">
+<div class="event-total-wrap">
+  <div class="container">
+    <p class="event-total">Tổng số: <strong>13</strong> Sự kiện</p>
+  </div>
+</div>
+<!-- EVENT GRID -->
+<section class="event-grid">
+  <div class="container">
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://youthvietnam.vn/wp-content/uploads/2021/06/mau-poster-phim-viet-nam.jpg" alt="">
+        <div class="event-date">
+          <span class="day">20</span>
+          <span class="month">Tháng 6</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        2.345
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Hà Nội
+        </span>
+        <span class="price">VNĐ 100.000 +</span>
+      </div>
+      <p class="event-caption">Bố Già là bộ phim của Trấn Thành, lấy cảm hứng từ đời sống bình dị để tôn vinh tình cha con và giá trị gia đình.</p>
+    </article>
+
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://insieutoc.vn/wp-content/uploads/2021/02/poster-ngang.jpg" alt="">
+        <div class="event-date">
+          <span class="day">20</span>
+          <span class="month">Tháng 6</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        133.200
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Hà Nội
+        </span>
+        <span class="price">VNĐ 10.000 +</span>
+      </div>
+      <p class="event-caption">The Adventures of Tintin (Những cuộc phiêu lưu của Tintin) là bộ phim hoạt hình 3D do Steven Spielberg đạo diễn,...</p>
+    </article>
+
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://cdn2.fptshop.com.vn/unsafe/Uploads/images/tin-tuc/176175/Originals/poster-film-5.jpg" alt="">
+        <div class="event-date">
+          <span class="day">21</span>
+          <span class="month">Tháng 6</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        14.844
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Hồ Chí Minh
+        </span>
+        <span class="price">VNĐ 30.000 +</span>
+      </div>
+      <p class="event-caption">Bến Phà Xác Sống là bộ phim kinh dị – hành động Hàn Quốc, xoay quanh cuộc đấu tranh sinh tồn khốc liệt của những con người ...</p>
+    </article>
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://thietkeposter.com.vn/wp-content/uploads/2019/01/0-poster-vach-tran-ngang.jpg" alt="">
+        <div class="event-date">
+          <span class="day">21</span>
+          <span class="month">Tháng 6</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        7.844
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Lâm Đồng
+        </span>
+        <span class="price">VNĐ 390.000 +</span>
+      </div>
+      <p class="event-caption">Vạch Trần là bộ phim tâm lý – hình sự, xoáy sâu vào hành trình truy tìm sự thật, nơi những bí mật dần ...</p>
+    </article>
+
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://image.dienthoaivui.com.vn/x,webp,q90/https://dashboard.dienthoaivui.com.vn/uploads/dashboard/editor_upload/phim-ma-viet-nam-3.jpg" alt="">
+        <div class="event-date">
+          <span class="day">21</span>
+          <span class="month">Tháng 6</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        6.789
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Hà Nội
+        </span>
+        <span class="price">VNĐ 140.000 +</span>
+      </div>
+      <p class="event-caption">Quỷ Cẩu là bộ phim kinh dị Việt Nam, lấy cảm hứng từ truyền thuyết dân gian rùng rợn,...</p>
+    </article>
+
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://image.dienthoaivui.com.vn/x,webp,q90/https://dashboard.dienthoaivui.com.vn/uploads/dashboard/editor_upload/phim-ma-viet-nam-5.jpg" alt="">
+        <div class="event-date">
+          <span class="day">28</span>
+          <span class="month">Tháng 6</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        987
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Hà Nội
+        </span>
+        <span class="price">VNĐ 150.000 +</span>
+      </div>
+      <p class="event-caption">Bắc Kim Thang là bộ phim kinh dị Việt Nam, khai thác những bí mật gia đình u ám và nỗi ám ảnh từ ký ức tuổi thơ,...</p>
+    </article>
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://www.elleman.vn/app/uploads/2018/04/25/Avengers-Infinity-War-ELLE-Man-featured-01-01.jpg" alt="">
+        <div class="event-date">
+          <span class="day">28</span>
+          <span class="month">Tháng 06</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        2.607
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Huế
+        </span>
+        <span class="price">VNĐ 90.000 +</span>
+      </div>
+      <p class="event-caption">The Avengers là bom tấn siêu anh hùng của Marvel, quy tụ Iron Man, Captain America, Thor, Hulk, Black Widow và Hawkeye cùng hợp sức bảo vệ...</p>
+    </article>
+
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://danviet.ex-cdn.com/files/f1/296231569849192448/2021/12/2/spider-man-no-way-home-tobey-maguire-appearance-1638424336264145018660.jpg" alt="">
+        <div class="event-date">
+          <span class="day">29</span>
+          <span class="month">Tháng 6</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        4.400
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Hưng Yên
+        </span>
+        <span class="price">VNĐ 150.000 +</span>
+      </div>
+      <p class="event-caption">Spider-Man: No Way Home là bom tấn Marvel kể về hành trình Peter Parker đối mặt với đa vũ trụ hỗn loạn, khi những kẻ phản diện từ các thế ...</p>
+    </article>
+
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://bhd.1cdn.vn/2021/10/04/files-library-images-site-1-20211004-web-venom-thu-ve-90-trieu-usd-tro-thanh-phim-ra-mat-tot-nhat-tu-dau-dich-33-135513.jpeg" alt="">
+        <div class="event-date">
+          <span class="day">03</span>
+          <span class="month">Tháng 7</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        3.456
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Hồ Chí Minh
+        </span>
+        <span class="price">VNĐ 35.000 +</span>
+      </div>
+      <p class="event-caption">Venom 3 là phần tiếp theo trong loạt phim siêu anh hùng – phản anh hùng của Marvel, tiếp tục câu chuyện hỗn loạn nhưng đầy kịch tính...</p>
+    </article>
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://www.fahasa.com/blog/wp-content/uploads/2025/03/doraemon-3.jpg" alt="">
+        <div class="event-date">
+          <span class="day">04</span>
+          <span class="month">Tháng 7</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        9.854
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Hồ Chí Minh
+        </span>
+        <span class="price">VNĐ 99.000 +</span>
+      </div>
+      <p class="event-caption">Doraemon: Nobita’s Art World Tales (2025) — một cuộc phiêu lưu kỳ ảo đưa Doraemon và nhóm bạn vào thế giới tranh vẽ tuyệt mỹ đầy kỳ diệu.</p>
+    </article>
+
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://vcdn1-giaitri.vnecdn.net/2025/09/09/thanh-guom-OTWJ-1757392606-8369-1757393652.jpg?w=0&h=0&q=100&dpr=2&fit=crop&s=5_81YP6lStVBTcsWO7yu6Q" >
+        <div class="event-date">
+          <span class="day">03</span>
+          <span class="month">Tháng 7</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        10.202
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Hồ Chí Minh
+        </span>
+        <span class="price">VNĐ 140.000 +</span>
+      </div>
+      <p class="event-caption">Kimetsu no Yaiba: Vô Hạn Thành (Demon Slayer: Infinity Castle) là dự án điện ảnh hoành tráng tiếp nối anime đình đám,...</p>
+    </article>
+
+    <article class="event-item">
+      <div class="event-thumb">
+        <img src="https://cdn2.tuoitre.vn/thumb_w/1200/471584752817336320/2024/8/10/100-2024-1080p-hd-q7ljjnunwqtovkjeiffmtreg7k2-17228436596321407572541-read-only-17232582798341385239489-45-0-1050-1920-crop-17232588361821879867918.jpg" alt="">
+        <div class="event-date">
+          <span class="day">28</span>
+          <span class="month">Tháng 6</span>
+          <span class="year">2025</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <span class="meta">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10Z"/>
+          <circle cx="12" cy="12" r="2.5" fill="#1f2325"/>
+        </svg>
+        1.029
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="vertical-align:middle;">
+          <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>
+        </svg>
+        Lâm Đồng
+        </span>
+        <span class="price">VNĐ 40.000 +</span>
+      </div>
+      <p class="event-caption">Conan Movie 28: One-Eyed Flashback kể về vụ án bí ẩn liên quan đến quá khứ của Shuichi Akai và FBI.</p>
+    </article>
+  </div>
+</section>
+<!-- NÚT XEM THÊM -->
+<div class="see-more">
+  <a href="#" class="see-more-btn">
+    <!-- icon menu -->
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="3" y="6" width="18" height="2" fill="currentColor"/>
+      <rect x="3" y="11" width="18" height="2" fill="currentColor"/>
+      <rect x="3" y="16" width="18" height="2" fill="currentColor"/>
+    </svg>
+    XEM THÊM 
+  </a>
+</div>
+<!-- BLOCK BẮT ĐẦU BÁN VÉ -->
+<section class="start-selling">
+  <div class="container">
+    <h2 class="start-title">
+      Bắt đầu bán vé sự kiện của bạn với 
+      <span class="logo-text">
+        Ticket<span class="go">Go</span>
+      </span>
+    </h2>
+  </div>
+</section>
+<!-- BLOCK LIÊN HỆ KINH DOANH -->
+<section class="contact-business">
+  <div class="container">
+    <p class="contact-text">
+      Liên hệ bộ phận phát triển kinh doanh, vui lòng gọi:
+      <span class="contact-phone">08.999.80.818</span> - <span class="contact-phone">0243.788.00.99</span>
+    </p>
+  </div>
+</section>
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Cột 1: Liên hệ -->
+      <div class="footer-col">
+        <h4>Liên Hệ Hợp Tác</h4>
+        <p>Điện thoại: 0243.788.00.99 (8:30 - 17:00)</p>
+        <p>Hotline: 08.999.80.818</p>
+        <p>Email: <a href="mailto:chamsockhachhang@ticketgo.vn">chamsockhachhang@ticketgo.vn</a></p>
+        <p>Địa chỉ: Số 1, Phạm Văn Bạch, phường Yên Hòa, quận Cầu Giấy, Hà Nội.</p>
+        <p>Ứng dụng TicketGo</p>
+        <a href="#"><img src="https://www.ticketgo.vn/images/appstore.png" alt="Tải về trên App Store" class="store-btn"></a>
+      </div>
+
+      <!-- Cột 2: Thông tin -->
+      <div class="footer-col">
+        <h4>Thông tin</h4>
+        <ul>
+          <li><a href="#">Về chúng tôi</a></li>
+          <li><a href="#">Khuyến mãi</a></li>
+          <li><a href="#">Phương thức thanh toán</a></li>
+          <li><a href="#">Chính sách bảo mật và các điều khoản</a></li>
+          <li><a href="#">Hướng dẫn đặt vé</a></li>
+          <li><a href="#">Các câu hỏi thường gặp</a></li>
+          <li><a href="#">Chính sách điều khoản sử dụng</a></li>
+        </ul>
+      </div>
+
+      <!-- Cột 3: Khách hàng -->
+      <div class="footer-col">
+        <h4>Khách hàng</h4>
+        <ul>
+          <li><a href="#">Đăng nhập dành cho đối tác</a></li>
+          <li><a href="#">Tài khoản</a></li>
+          <li><a href="#">Gửi sự kiện</a></li>
+          <li><a href="#">Danh sách sự kiện</a></li>
+          <li><a href="#">Sự kiện đã diễn ra</a></li>
+          <li><a href="#">Chương trình Go Xu</a></li>
+        </ul>
+      </div>
+
+      <!-- Cột 4: Đăng ký email & MXH -->
+      <div class="footer-col">
+        <h4>Đăng ký nhận email</h4>
+        <form class="subscribe">
+          <input type="email" placeholder="Email của bạn" />
+          <button type="submit">→</button>
+        </form>
+        <div class="socials">
+          <a href=""><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-pinterest"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        <div class="certs">
+          <img src="https://www.ticketgo.vn/images/ticketgo/dathongbao_bct.png" alt="Đã thông báo bộ công thương">
+          <img src="https://images.dmca.com/Badges/dmca_protected_sml_120n.png?ID=c6007083-db1a-4a4f-82aa-206ed787e27b" alt="DMCA Protected">
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

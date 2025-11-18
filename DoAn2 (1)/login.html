@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Đăng nhập - TicketGo</title>
+  <link rel="stylesheet" href="login.css" />
+  <script src="login.js" defer></script>
+</head>
+<body class="auth-page">
+  <main class="auth-box" role="main" aria-labelledby="pageTitle">
+    <!-- Logo -->
+    <div class="logo-center">
+      <span class="logo__wordmark">
+        <span class="ticket">Ticket</span><span class="go">Go</span>
+      </span>
+      <p class="logo__tagline">Đi chơi đâu, lên Ticketgo</p>
+    </div>
+
+    <!-- Title -->
+    <h1 id="pageTitle" class="auth-title">ĐĂNG NHẬP</h1>
+
+    <!-- Form -->
+    <form class="auth-form" novalidate>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="Nhập email" autocomplete="email" required />
+      </div>
+
+      <div class="field">
+        <label for="password">Mật khẩu</label>
+        <input id="password" type="password" placeholder="Nhập mật khẩu" autocomplete="current-password" required />
+      </div>
+
+      <div class="row">
+        <label class="remember">
+          <input type="checkbox" id="remember" />
+          <span>Ghi nhớ đăng nhập</span>
+        </label>
+
+        <a class="forgot" href="#">Quên mật khẩu?</a>
+      </div>
+
+      <button type="submit" class="btn-submit">ĐĂNG NHẬP</button>
+    </form>
+
+    <p class="switch">Chưa có tài khoản? <a href="sign up.html">Đăng ký</a></p>
+  </main>
+</body>
+</html>

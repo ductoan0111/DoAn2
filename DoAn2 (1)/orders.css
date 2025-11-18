@@ -1,0 +1,260 @@
+
+/* ==========================================================================
+    0) DESIGN TOKENS — màu, spacing, radius, shadow, typography
+========================================================================== */
+:root{
+/* Palette */
+--bg: #0b0d0f;           --bg-soft:#0f1114;
+--surface:#111418;       --elev:#151922;
+--text:#e8edf2;          --muted:#98a2b3;
+--line:#253043;
+
+--primary:#2ea0ff;       --primary-600:#1886e4; --primary-700:#0f6cc0;
+--success:#37ca7a;       --warn:#f7c948;         --danger:#ff5d5d;
+
+--chip:#1c2330;          --mark:#fff1a6;
+
+/* Spacing & Radius */
+--r-xs:8px; --r-sm:10px; --r-md:12px; --r-lg:14px;
+--s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:20px; --s-6:24px; --s-7:28px;
+
+/* Shadows */
+--shadow-1: 0 6px 16px rgba(0,0,0,.22);
+--shadow-2: 0 10px 30px rgba(0,0,0,.35);
+
+/* Typography */
+--font: 14px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+--h1: 28px; --h2: 20px; --small:12px;
+
+/* Layout */
+--container: 1160px;
+}
+[data-theme="light"]{
+--bg:#f7f8fb; --bg-soft:#f1f5f9;
+--surface:#ffffff; --elev:#ffffff;
+--text:#1f2937; --muted:#667085; --line:#e6e9ef;
+--primary:#2563eb; --primary-600:#1d4ed8; --primary-700:#1b46c1;
+--success:#159c5e; --warn:#b58900; --danger:#e54850;
+--chip:#eef2ff; --mark:#fff1a6;
+--shadow-1: 0 8px 16px rgba(0,0,0,.06);
+--shadow-2: 0 20px 32px rgba(0,0,0,.08);
+}
+
+/* ==========================================================================
+    1) RESET + GLOBAL
+========================================================================== */
+* { box-sizing: border-box }
+html, body { height:100% }
+body {
+margin:0; font: var(--font); color:var(--text);
+background: radial-gradient(1200px 600px at 80% -20%, rgba(46,160,255,.08), transparent 60%),
+            linear-gradient(180deg,var(--bg),var(--bg-soft) 65%);
+}
+img { max-width:100%; display:block }
+a { color: var(--primary); text-decoration: none }
+a:hover { text-decoration: underline }
+::selection { background: rgba(46,160,255,.25) }
+
+/* Focus ring – accessibility */
+:where(button, a, input, select, [role="button"], .btn) {
+outline: none;
+}
+:where(button, a, input, select, [role="button"], .btn):focus-visible {
+box-shadow: 0 0 0 3px color-mix(in hsl, var(--primary) 35%, transparent), 0 0 0 1px var(--primary);
+border-radius: var(--r-sm);
+}
+
+/* Utility */
+.container { max-width: var(--container); margin:auto; padding: var(--s-4) }
+.muted { color: var(--muted) }
+.num { text-align: right }
+.hidden { display:none !important }
+
+/* ==========================================================================
+    2) HEADER
+========================================================================== */
+header.site-header{
+position: sticky; top:0; z-index: 50;
+background: color-mix(in hsl, var(--surface) 72%, transparent);
+backdrop-filter: blur(10px) saturate(140%);
+border-bottom: 1px solid var(--line);
+}
+.header-wrap{display:flex;align-items:center;justify-content:space-between;gap:var(--s-4)}
+.logo { display:flex; align-items:center; gap: var(--s-3); text-decoration:none; color:var(--text) }
+.logo__wordmark{ font-weight: 900; letter-spacing:.2px; font-size: 18px }
+.logo__wordmark .ticket{ color:#fff }
+.logo__wordmark .go{ color: var(--primary) }
+.logo__tagline { font-size: var(--small); color: var(--muted) }
+
+/* Header actions */
+.btn { --padY:10px; --padX:12px;
+display:inline-flex; align-items:center; gap:8px;
+padding: var(--padY) var(--padX);
+border: 1px solid var(--line); border-radius: var(--r-sm);
+background: linear-gradient(180deg, var(--elev), var(--surface));
+color: var(--text); cursor: pointer; transition: .15s transform, .2s background, .2s border-color, .2s box-shadow;
+}
+.btn:hover { transform: translateY(-1px) }
+.btn:active { transform: translateY(0); filter: brightness(.98) }
+.btn[disabled]{ opacity: .6; pointer-events: none }
+.btn-icon { width:36px; height:36px; justify-content:center; padding:0 }
+.btn--ghost { background: transparent }
+.btn--pri { background: linear-gradient(180deg, var(--primary), var(--primary-600)); color: #fff; border-color: transparent }
+.btn--bad { background: linear-gradient(180deg, color-mix(in hsl,var(--danger) 80%, #000 10%), var(--danger)); color:#fff; border-color: color-mix(in hsl, var(--danger) 70%, #000 35%) }
+
+/* ==========================================================================
+    3) PAGE RIBBON + TOOLBAR/FILTERS
+========================================================================== */
+.ribbon{
+background: var(--surface);
+border: 1px solid var(--line);
+border-radius: var(--r-lg);
+padding: var(--s-4);
+box-shadow: var(--shadow-2);
+}
+.page-title{ display:flex; align-items:flex-start; justify-content:space-between; gap: var(--s-4); flex-wrap:wrap }
+.page-title h1{ margin:0; font-size: var(--h1) }
+.pill{ padding: 4px 10px; border-radius: 999px; background: var(--chip); color: var(--primary); font-weight: 800; font-size: 12px }
+
+/* Toolbar layout */
+.toolbar{
+margin-top: var(--s-4);
+display: grid; gap: var(--s-3);
+grid-template-columns: 1.3fr .9fr .9fr .8fr auto;
+}
+@media (max-width: 920px){
+.toolbar{ grid-template-columns: 1fr 1fr 1fr }
+}
+@media (max-width: 640px){
+.toolbar{ grid-template-columns: 1fr }
+}
+
+/* Fields */
+.field { position: relative }
+.field input, .field select {
+width:100%; height: 40px; padding: 0 12px;
+border:1px solid var(--line); border-radius: var(--r-sm);
+background: var(--elev); color: var(--text);
+outline: none; transition: .2s border-color, .2s box-shadow, .2s background;
+}
+.field input::placeholder{ color: #8891a1 }
+.field input:hover, .field select:hover { border-color: color-mix(in hsl, var(--primary) 30%, var(--line)) }
+.field input:focus, .field select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px color-mix(in hsl, var(--primary) 25%, transparent) }
+
+/* Double number field (min/max) */
+.field--pair { display:grid; grid-template-columns:1fr 1fr; gap: var(--s-2) }
+
+/* ==========================================================================
+    4) TABLE
+========================================================================== */
+.table-wrap{
+margin-top: var(--s-4);
+background: var(--surface);
+border: 1px solid var(--line);
+border-radius: var(--r-lg);
+box-shadow: var(--shadow-2);
+overflow:auto;
+}
+table{ width:100%; border-collapse: collapse; min-width: 920px }
+thead th{
+position: sticky; top:0; z-index: 5;
+background: linear-gradient(180deg, color-mix(in hsl, var(--surface) 85%, transparent), var(--surface));
+color: var(--muted);
+font-weight: 700; letter-spacing: .2px; text-transform: uppercase; font-size: 12px;
+}
+th, td { padding: 12px; border-bottom: 1px solid var(--line); text-align: left }
+tbody tr{ transition: background .15s }
+tbody tr:hover{ background: color-mix(in hsl, var(--primary) 10%, transparent) }
+tbody tr.is-selected{ background: color-mix(in hsl, var(--primary) 18%, transparent) }
+.select-col{ width: 36px }
+
+/* Actions cell */
+.row-actions{ display:flex; gap: 8px; flex-wrap: wrap }
+.row-actions .btn { --padY:8px; --padX:10px }
+
+/* Status/badge */
+.badge{
+display:inline-flex; align-items:center; gap:6px;
+padding: 4px 10px; border-radius: 999px;
+background: var(--chip); color: var(--text); font-weight: 800; font-size: 12px;
+}
+
+/* ==========================================================================
+    5) PAGINATION
+========================================================================== */
+.pager{
+display:flex; align-items:center; justify-content:space-between; gap: var(--s-3);
+margin-top: var(--s-4);
+}
+.pager .info{ color: var(--muted) }
+.pager .group{ display:flex; align-items:center; gap: var(--s-2) }
+
+/* ==========================================================================
+    6) BULK BAR (multi-select actions)
+========================================================================== */
+.bulkbar{
+position: sticky; bottom:16px; left:0; right:0; margin:auto; max-width: var(--container);
+display:none; align-items:center; gap: var(--s-2);
+background: var(--surface); border:1px solid var(--line); border-radius: var(--r-md); box-shadow: var(--shadow-2);
+padding: 8px 12px; z-index: 40;
+}
+.bulkbar.show{ display:flex }
+
+/* ==========================================================================
+    7) EMPTY STATE
+========================================================================== */
+.empty{
+display:none; margin-top: var(--s-4);
+border: 1px dashed var(--line); border-radius: var(--r-lg);
+padding: var(--s-6); background: var(--surface); text-align:center; color: var(--muted)
+}
+.empty svg{ width: 140px; height: 140px; opacity: .85; margin: 0 auto var(--s-3) }
+
+/* ==========================================================================
+    8) MODAL (order details + print)
+========================================================================== */
+.modal{ position: fixed; inset: 0; display: none; place-items: center; background: rgba(0,0,0,.55); z-index: 60 }
+.modal.open{ display: grid }
+.dialog{
+width: min(880px, 96vw);
+background: var(--surface); border:1px solid var(--line); border-radius: var(--r-lg);
+box-shadow: var(--shadow-2); overflow:hidden
+}
+.dialog header{ display:flex; align-items:center; justify-content:space-between; padding: 14px 16px; border-bottom:1px solid var(--line) }
+.dialog .content{ padding: 14px 16px }
+.grid{ display:grid; gap: var(--s-2) }
+.items{ border-top:1px dashed var(--line); margin-top: var(--s-2) }
+.items li{
+display:grid; grid-template-columns: 1fr 140px 80px; gap: 10px;
+padding: 10px 0; border-bottom:1px dashed var(--line)
+}
+.total{ display:flex; justify-content:flex-end; gap: 14px; align-items:center; font-weight: 900 }
+
+/* ==========================================================================
+    9) TOAST
+========================================================================== */
+.toast{
+position:fixed; right:16px; bottom:16px;
+background: var(--surface); border:1px solid var(--line);
+padding: 10px 12px; border-radius: var(--r-md);
+opacity:0; transform: translateY(10px);
+transition: .25s; z-index: 70;
+}
+.toast.is-in{ opacity:1; transform: none }
+.hl{ background: var(--mark); color:#1e293b; padding:0 4px; border-radius:4px }
+
+/* ==========================================================================
+    10) SKELETON (để dành mở rộng nếu cần)
+========================================================================== */
+.skeleton{ position:relative; overflow:hidden; background: linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent); animation: shimmer 1.2s infinite }
+@keyframes shimmer { 0%{ background-position: -120% 0 } 100%{ background-position: 120% 0 } }
+
+/* ==========================================================================
+    11) PRINT
+========================================================================== */
+@media print{
+header.site-header, .toolbar, .bulkbar, .empty, .table-wrap, .pager { display:none !important }
+.modal{ display:block; position: static; background: none }
+.dialog{ width: 100%; border:none; box-shadow: none }
+.print-only{ display:block }
+}

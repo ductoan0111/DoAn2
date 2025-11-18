@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TicketGo - Admin</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css" />
+  <script defer src="admin.js"></script>
+</head>
+<body>
+  <!-- ========= APP (mở thẳng, không đăng nhập) ========= -->
+  <div id="app" class="app">
+    <!-- Header -->
+    <header class="admin-header">
+      <div class="container-admin header-inner">
+        <div>
+          <div class="logo__wordmark">
+            <span class="ticket">Ticket</span><span class="go">Go</span>
+          </div>
+          <div class="logo__tagline">Đi chơi đâu, lên Ticketgo</div>
+        </div>
+        <div class="header-actions">
+          <button id="themeToggle" class="icon-btn icon-btn--theme" title="Chuyển chế độ">
+            <i class="fa fa-moon"></i>
+          </button>
+          <div class="user-menu" id="userMenu">
+            <img src="https://i.pravatar.cc/40?img=12" alt="Avatar" class="avatar" id="avatarBtn">
+            <div id="accountMenu" class="dropdown" role="menu">
+              <div class="user-info">
+                <div id="userName">Admin</div>
+                <small id="userRole">superadmin</small>
+              </div>
+              <a href="#" role="menuitem"><i class="fa fa-user"></i> Hồ sơ</a>
+              <a href="#" role="menuitem"><i class="fa fa-gear"></i> Cài đặt</a>
+              <!-- Bỏ nút Đăng xuất -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Layout -->
+    <div class="layout">
+      <!-- Sidebar -->
+        <aside class="sidebar card-surface neo-sidebar" data-collapsed="false">
+          <div class="sb-head">
+            <div class="sb-brand">
+              <div class="logo__wordmark">
+                <span class="ticket">Ticket</span><span class="go">Go</span>
+              </div>
+
+            </div>
+            <button class="sb-toggle" id="sbToggle" aria-label="Thu gọn / Mở rộng">
+              <i class="fa fa-angles-left"></i>
+            </button>
+          </div>
+            
+          <nav class="nav sb-nav">
+            <!-- Nút về trang chủ -->
+          <a class="nav__item nav__item--home" target="_blank" href="home.html">
+            <span class="sb-icon"><i class="fa fa-house"></i></span>
+            <span class="sb-text">Về trang chủ</span>
+            <i class="fa fa-arrow-up-right-from-square sb-caret" aria-hidden="true"></i>
+          </a>
+            <span class="sb-section">Tổng quan</span>
+            <a class="nav__item is-active" data-view="dashboard">
+              <span class="sb-icon"><i class="fa fa-chart-line"></i></span>
+              <span class="sb-text">Báo cáo thống kê</span>
+              <i class="fa fa-chevron-right sb-caret" aria-hidden="true"></i>
+            </a>
+
+            <span class="sb-section">Quản trị</span>
+            <a class="nav__item" data-view="events">
+              <span class="sb-icon"><i class="fa fa-calendar-days"></i></span>
+              <span class="sb-text">Quản lý sự kiện & vé</span>
+              <i class="fa fa-chevron-right sb-caret" aria-hidden="true"></i>
+            </a>
+            <a class="nav__item" data-view="orders">
+              <span class="sb-icon"><i class="fa fa-receipt"></i></span>
+              <span class="sb-text">Quản lý đơn hàng</span>
+              <i class="fa fa-chevron-right sb-caret" aria-hidden="true"></i>
+            </a>
+            <a class="nav__item" data-view="customers">
+              <span class="sb-icon"><i class="fa fa-users"></i></span>
+              <span class="sb-text">Quản lý khách hàng</span>
+              <i class="fa fa-chevron-right sb-caret" aria-hidden="true"></i>
+            </a>
+            <a class="nav__item only-super" data-view="admins">
+              <span class="sb-icon"><i class="fa fa-user-shield"></i></span>
+              <span class="sb-text">Quản lý tài khoản admin</span>
+              <i class="fa fa-chevron-right sb-caret" aria-hidden="true"></i>
+            </a>
+          </nav>
+        </aside>
+
+      <!-- Main -->
+      <main class="content">
+        <!-- ====== DASHBOARD (Neo) ====== -->
+            <section id="view-dashboard" class="view is-show">
+            <div class="container-admin neo-dash">
+                <div class="dash-top">
+                <h1 class="admin-title">Báo cáo thống kê</h1>
+                </div>
+
+                <!-- KPI tiles -->
+                <div class="kpi-grid">
+                <div class="kpi-card kpi--brand">
+                    <div class="kpi-icon"><i class="fa fa-sack-dollar"></i></div>
+                    <div class="kpi-main">
+                    <div class="kpi-label">Doanh thu</div>
+                    <div class="kpi-value" id="kpiRevenue">0 đ</div>
+                    <div class="kpi-delta" id="kpiRevenueDelta">—</div>
+                    </div>
+                </div>
+                <div class="kpi-card kpi--ok">
+                    <div class="kpi-icon"><i class="fa fa-receipt"></i></div>
+                    <div class="kpi-main">
+                    <div class="kpi-label">Đơn thành công</div>
+                    <div class="kpi-value" id="kpiOrders">0</div>
+                    <div class="kpi-delta" id="kpiOrdersDelta">—</div>
+                    </div>
+                </div>
+                <div class="kpi-card kpi--warn">
+                    <div class="kpi-icon"><i class="fa fa-ticket"></i></div>
+                    <div class="kpi-main">
+                    <div class="kpi-label">Vé đang bán</div>
+                    <div class="kpi-value" id="kpiTickets">0</div>
+                    <div class="kpi-delta muted">Live</div>
+                    </div>
+                </div>
+                <div class="kpi-card kpi--danger">
+                    <div class="kpi-icon"><i class="fa fa-users"></i></div>
+                    <div class="kpi-main">
+                    <div class="kpi-label">Khách hàng</div>
+                    <div class="kpi-value" id="kpiCustomers">0</div>
+                    <div class="kpi-delta muted">Tổng</div>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Charts row -->
+                <div class="charts-grid">
+                <div class="panel card-surface">
+                    <div class="panel-head">
+                    <h3>Doanh thu 6 tháng gần nhất</h3>
+                    </div>
+                    <canvas id="chartRevenue" class="chart h-280" aria-label="Revenue chart"></canvas>
+                </div>
+
+                <div class="panel card-surface">
+                    <div class="panel-head">
+                    <h3>Trạng thái đơn hàng</h3>
+                    </div>
+                    <div class="donut-wrap">
+                    <canvas id="chartOrders" class="chart h-260"></canvas>
+                    <ul class="legend" id="legendOrders"></ul>
+                    </div>
+                </div>
+                </div>
+
+                <!-- Top + Category -->
+                <div class="grid-2">
+                <div class="panel card-surface">
+                    <div class="panel-head"><h3>Sự kiện bán chạy</h3></div>
+                    <div class="table-wrap">
+                    <table class="product-table">
+                        <thead><tr><th>Tên</th><th>Danh mục</th><th style="text-align:right">Doanh thu</th></tr></thead>
+                        <tbody id="topProducts"></tbody>
+                    </table>
+                    </div>
+                </div>
+
+                <div class="panel card-surface">
+                    <div class="panel-head"><h3>Doanh thu theo danh mục</h3></div>
+                    <canvas id="chartCategories" class="chart h-280"></canvas>
+                </div>
+                </div>
+            </div>
+            </section>
+
+
+        <!-- ====== EVENTS & TICKETS ====== -->
+        <section id="view-events" class="view">
+          <div class="container-admin">
+            <div class="head-flex">
+              <h1 class="admin-title">Quản lý sự kiện & vé</h1>
+              <div class="admin-actions">
+                <button id="btnAddProduct" class="btn btn--primary"><i class="fa fa-plus"></i> Thêm vé</button>
+                <button id="btnClearProducts" class="btn btn--ghost"><i class="fa fa-trash"></i> Xoá tất cả</button>
+              </div>
+            </div>
+            <div class="toolbar">
+              <div class="search-lite">
+                <i class="fa fa-magnifying-glass"></i>
+                <input id="searchProducts" type="search" placeholder="Tìm theo tên, danh mục..." />
+              </div>
+              <div class="tool-right">
+                <select id="filterProdCat" class="select-lite">
+                  <option value="">Tất cả danh mục</option>
+                  <option>Concert </option><option>Art</option><option>Travel</option><option>Workshop</option><option>Movie</option><option>Tour</option><option>Sport</option>
+                </select>
+                <select id="filterProdStatus" class="select-lite">
+                  <option value="">Tất cả trạng thái</option>
+                  <option value="active">Đang bán</option>
+                  <option value="draft">Bản nháp</option>
+                  <option value="hidden">Đã ẩn</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-wrap card-surface">
+              <table class="product-table">
+                <thead>
+                  <tr>
+                    <th>Vé</th><th>Tên vé</th><th>Danh mục</th><th>Giá</th><th>Tồn kho</th><th>Trạng thái</th><th style="width:120px">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyProducts"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====== ORDERS ====== -->
+        <section id="view-orders" class="view">
+          <div class="container-admin">
+            <div class="head-flex">
+              <h1 class="admin-title">Quản lý đơn hàng</h1>
+              <div class="admin-actions">
+                <button id="btnAddOrder" class="btn btn--primary"><i class="fa fa-plus"></i> Tạo đơn</button>
+                <button id="btnClearOrders" class="btn btn--ghost"><i class="fa fa-trash"></i> Xoá tất cả</button>
+              </div>
+            </div>
+            <div class="toolbar">
+              <div class="search-lite">
+                <i class="fa fa-magnifying-glass"></i>
+                <input id="searchOrders" type="search" placeholder="Tìm theo mã đơn, khách hàng..." />
+              </div>
+              <div class="tool-right">
+                <select id="filterOrderStatus" class="select-lite">
+                  <option value="">Tất cả trạng thái</option>
+                  <option value="pending">Chờ thanh toán</option>
+                  <option value="paid">Đã thanh toán</option>
+                  <option value="refunded">Đã hoàn</option>
+                  <option value="cancelled">Đã hủy</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-wrap card-surface">
+              <table class="product-table">
+                <thead>
+                  <tr>
+                    <th>Mã</th><th>Khách hàng</th><th>Vé</th><th>SL</th><th>Thành tiền</th><th>Trạng thái</th><th>Thời gian</th><th style="width:120px">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyOrders"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====== CUSTOMERS ====== -->
+        <section id="view-customers" class="view">
+          <div class="container-admin">
+            <div class="head-flex">
+              <h1 class="admin-title">Quản lý khách hàng</h1>
+              <div class="admin-actions">
+                <button id="btnAddCustomer" class="btn btn--primary"><i class="fa fa-user-plus"></i> Thêm khách</button>
+                <button id="btnClearCustomers" class="btn btn--ghost"><i class="fa fa-trash"></i> Xoá tất cả</button>
+              </div>
+            </div>
+            <div class="toolbar">
+              <div class="search-lite">
+                <i class="fa fa-magnifying-glass"></i>
+                <input id="searchCustomers" type="search" placeholder="Tìm theo tên, email..." />
+              </div>
+              <div class="tool-right">
+                <select id="filterCustomerStatus" class="select-lite">
+                  <option value="">Tất cả trạng thái</option>
+                  <option value="active">Hoạt động</option>
+                  <option value="blocked">Chặn</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-wrap card-surface">
+              <table class="product-table">
+                <thead>
+                  <tr>
+                    <th>Tên</th><th>Email</th><th>Điện thoại</th><th>Đơn</th><th>Chi tiêu</th><th>Trạng thái</th><th style="width:120px">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyCustomers"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====== ADMIN ACCOUNTS ====== -->
+        <section id="view-admins" class="view">
+          <div class="container-admin">
+            <div class="head-flex">
+              <h1 class="admin-title">Quản lý tài khoản admin</h1>
+              <div class="admin-actions">
+                <button id="btnAddAdmin" class="btn btn--primary"><i class="fa fa-user-shield"></i> Thêm admin</button>
+              </div>
+            </div>
+            <div class="toolbar">
+              <div class="search-lite">
+                <i class="fa fa-magnifying-glass"></i>
+                <input id="searchAdmins" type="search" placeholder="Tìm theo tên, email..." />
+              </div>
+              <div class="tool-right">
+                <select id="filterAdminRole" class="select-lite">
+                  <option value="">Tất cả vai trò</option>
+                  <option value="superadmin">Superadmin</option>
+                  <option value="staff">Staff</option>
+                </select>
+                <select id="filterAdminStatus" class="select-lite">
+                  <option value="">Tất cả trạng thái</option>
+                  <option value="active">Hoạt động</option>
+                  <option value="disabled">Khóa</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-wrap card-surface">
+              <table class="product-table">
+                <thead>
+                  <tr>
+                    <th>Tên</th><th>Email</th><th>Vai trò</th><th>Trạng thái</th><th style="width:120px">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyAdmins"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- ===== Modal chung ===== -->
+    <div id="modal" class="modal" aria-hidden="true">
+      <div class="modal__overlay" data-close="true"></div>
+      <div class="modal__dialog card-surface">
+        <header class="modal__header">
+          <h3 id="modalTitle">Modal</h3>
+          <button class="modal__close" data-close="true">&times;</button>
+        </header>
+        <div class="modal__body">
+          <form id="modalForm"></form>
+        </div>
+        <footer class="modal__footer">
+          <button class="btn btn--ghost" data-close="true">Hủy</button>
+          <button id="modalSubmit" class="btn btn--primary" form="modalForm" type="submit">
+            <i class="fa fa-save"></i> Lưu
+          </button>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </div>
+</body>
+</html>
